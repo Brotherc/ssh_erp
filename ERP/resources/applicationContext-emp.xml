@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">  
+		<bean id="empAction" class="cn.brotherChun.erp.auth.emp.action.EmpAction" scope="prototype">
+			<property name="empEbi" ref="empEbi"></property>
+		</bean>
+		
+		<bean id="empEbi" class="cn.brotherChun.erp.auth.emp.business.ebo.EmpEbo">
+			<property name="empDao" ref="empDao"></property>
+		</bean>
+		
+		<bean id="empDao" class="cn.brotherChun.erp.auth.emp.dao.impl.EmpDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
+</beans>	
+	

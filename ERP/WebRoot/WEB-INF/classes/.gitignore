@@ -2,3 +2,6 @@
 /cn
 /log4j.properties
 /struts.xml
+/auth
+/Copy of applicationContext.xml
+/applicationContext-emp.xml

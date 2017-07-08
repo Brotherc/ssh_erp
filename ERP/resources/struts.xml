@@ -6,9 +6,27 @@
 <struts>
     <constant name="struts.devMode" value="true" />
     <constant name="struts.ui.theme" value="simple" />
+    
     <package name="default" namespace="/" extends="struts-default">
-    	<action name="login">
-    		<result>WEB-INF/jsps/login.jsp</result>
+   		<interceptors>
+    		<interceptor name="loginIntercept" class="cn.brotherChun.erp.util.intercept.LoginIntercept"></interceptor>
+    		<interceptor-stack name="systemStack">
+    			<interceptor-ref name="loginIntercept" ></interceptor-ref>
+    			<interceptor-ref name="defaultStack" ></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	<default-interceptor-ref name="systemStack"></default-interceptor-ref>
+    	
+    	<global-results>
+    		<result name="noLogin">WEB-INF/jsps/login.jsp</result>
+   		</global-results>
+    
+    	<action name="page_*">
+    		<result>WEB-INF/jsps/{1}.jsp</result>
+    	</action>
+    	<action name="emp_*" class="empAction" method="{1}">
+    		<result name="loginSuccess" >WEB-INF/jsps/main.jsp</result>
+    		<result name="loginFail">WEB-INF/jsps/login.jsp</result>
     	</action>
     </package>
 </struts>
