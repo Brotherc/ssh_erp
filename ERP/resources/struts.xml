@@ -4,29 +4,40 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-    <constant name="struts.devMode" value="true" />
-    <constant name="struts.ui.theme" value="simple" />
-    
-    <package name="default" namespace="/" extends="struts-default">
-   		<interceptors>
-    		<interceptor name="loginIntercept" class="cn.brotherChun.erp.util.intercept.LoginIntercept"></interceptor>
-    		<interceptor-stack name="systemStack">
-    			<interceptor-ref name="loginIntercept" ></interceptor-ref>
-    			<interceptor-ref name="defaultStack" ></interceptor-ref>
-    		</interceptor-stack>
-    	</interceptors>
-    	<default-interceptor-ref name="systemStack"></default-interceptor-ref>
-    	
-    	<global-results>
-    		<result name="noLogin">WEB-INF/jsps/login.jsp</result>
-   		</global-results>
-    
-    	<action name="page_*">
-    		<result>WEB-INF/jsps/{1}.jsp</result>
-    	</action>
-    	<action name="emp_*" class="empAction" method="{1}">
-    		<result name="loginSuccess" >WEB-INF/jsps/main.jsp</result>
-    		<result name="loginFail">WEB-INF/jsps/login.jsp</result>
-    	</action>
-    </package>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.ui.theme" value="simple" />
+
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginIntercept"
+				class="cn.brotherChun.erp.util.intercept.LoginIntercept"></interceptor>
+			<interceptor-stack name="systemStack">
+				<interceptor-ref name="loginIntercept"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="systemStack"></default-interceptor-ref>
+
+		<global-results>
+			<result name="noLogin">WEB-INF/jsps/login.jsp</result>
+			<result name="list" >WEB-INF/jsps/${actionName}/list.jsp</result>
+			<result name="input" >WEB-INF/jsps/${actionName}/input.jsp</result>
+			<result name="toList" type="redirectAction">${actionName}_list</result>
+		</global-results>
+
+		<action name="page_*">
+			<result>WEB-INF/jsps/{1}.jsp</result>
+		</action>
+
+		<!--Emp -->
+		<action name="emp_*" class="empAction" method="{1}">
+			<result name="loginSuccess">WEB-INF/jsps/main.jsp</result>
+			<result name="loginFail">WEB-INF/jsps/login.jsp</result>
+		</action>
+
+		<!--Dep -->
+		<action name="dep_*" class="depAction" method="{1}">
+		</action>
+	</package>
 </struts>

@@ -28,13 +28,13 @@
 						<tr>
 							<td width="19%" height="28">用户名：</td>
 							<td colspan="2">
-								<s:textfield size="18" name="emp.userName" ></s:textfield>
+								<s:textfield size="18" name="emp.userName" value="admin"></s:textfield>
 							</td>
 						</tr>
 						<tr>
 							<td height="31">密&nbsp;&nbsp;码：</td>
 							<td colspan="2">
-								<s:password size="18" name="emp.pwd"></s:password>
+								<s:password size="18" name="emp.pwd" value="admin"></s:password>
 							</td>
 						</tr>
 						<tr>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@include file="tools/mask.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -122,7 +123,7 @@
 								<td><a class="hei" target="main" href="#">基础维护</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="department/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;部门维护</a></td>
+								<td><a class="hei" target="main" href="dep_list.action">&nbsp;&nbsp;&nbsp;&nbsp;部门维护</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="employee/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;员工维护</a></td>
