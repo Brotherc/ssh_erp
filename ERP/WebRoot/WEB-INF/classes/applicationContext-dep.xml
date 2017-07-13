@@ -5,16 +5,15 @@
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		">  
-		<bean id="empAction" class="cn.brotherChun.erp.auth.emp.action.EmpAction" scope="prototype">
+		<bean id="depAction" class="cn.brotherChun.erp.auth.dep.action.DepAction" scope="prototype">
 			<property name="depEbi" ref="depEbi"></property>
-			<property name="empEbi" ref="empEbi"></property>
 		</bean>
 		
-		<bean id="empEbi" class="cn.brotherChun.erp.auth.emp.business.ebo.EmpEbo">
-			<property name="empDao" ref="empDao"></property>
+		<bean id="depEbi" class="cn.brotherChun.erp.auth.dep.business.ebo.DepEbo">
+			<property name="depDao" ref="depDao"></property>
 		</bean>
 		
-		<bean id="empDao" class="cn.brotherChun.erp.auth.emp.dao.impl.EmpDaoImpl">
+		<bean id="depDao" class="cn.brotherChun.erp.auth.dep.dao.impl.DepDaoImpl">
 			<property name="sessionFactory" ref="sessionFactory"></property>
 		</bean>
 </beans>	

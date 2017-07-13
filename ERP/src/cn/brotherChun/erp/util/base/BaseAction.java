@@ -36,8 +36,11 @@ public class BaseAction extends ActionSupport{
 	protected void putSession(String key,Object value) {
 		ActionContext.getContext().getSession().put(key, value);
 	}
+	protected Object getSession(String key) {
+		return ActionContext.getContext().getSession().get(key);
+	}
 	protected EmpModel getLogin(){
-		return (EmpModel) ActionContext.getContext().getSession().get(EmpModel.EMP_OBJECT_NAME);
+		return (EmpModel) getSession(EmpModel.EMP_OBJECT_NAME);
 	}
 	//分页数据初始化
 	protected void setDataTotal(Integer dataInteger) {

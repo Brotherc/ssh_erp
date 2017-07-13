@@ -12,6 +12,16 @@
 		<property name="name"/>
 		<property name="userName"/>
 		<property name="pwd"></property>
+		<property name="email"></property>
+		<property name="tele"></property>
+		<property name="address"></property>
+		<property name="gender"></property>
+		<property name="birthday"></property>
+ 		<property name="lastLoginTime"></property>
+		<property name="lastLoginIp"></property>
+		<property name="loginTimes"></property> 
+		
+		<many-to-one name="dep" class="cn.brotherChun.erp.auth.dep.vo.DepModel" column="depUuid"></many-to-one>
 	</class>
 	
 </hibernate-mapping>

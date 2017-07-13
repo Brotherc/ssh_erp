@@ -20,12 +20,12 @@
 				<table width="100%" border="0" cellpadding="0" cellspacing="0">
 					<tr>
 						<td width="32%">
-							<a href="employee/changePwd.jsp" target="main">
+							<a href="emp_toChangePwd" target="main">
 								<img src="images/head-l.gif"	border="0" />
 							</a>
 						</td>
 						<td width="26%">
-							<a href="index2.jsp">
+							<a href="emp_logout">
 								<img src="images/head-m.gif"	border="0" />
 							</a>
 						</td>
@@ -126,7 +126,7 @@
 								<td><a class="hei" target="main" href="dep_list.action">&nbsp;&nbsp;&nbsp;&nbsp;部门维护</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="employee/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;员工维护</a></td>
+								<td><a class="hei" target="main" href="emp_list.action">&nbsp;&nbsp;&nbsp;&nbsp;员工维护</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="role/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;角色维护</a></td>

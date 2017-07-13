@@ -19,7 +19,6 @@ public class DepAction extends BaseAction {
 	}
 	//查询功能
 	public String list(){
-		System.out.println("list");
 		setDataTotal(depEbi.getCount(depQ));
 		//根据查询条件获取数据(查询条件封装在depQ对象中)
 		List<DepModel> temp=depEbi.getAll(depQ,pageNum,pageCount);
