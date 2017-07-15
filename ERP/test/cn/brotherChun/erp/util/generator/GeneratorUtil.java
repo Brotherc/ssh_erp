@@ -19,6 +19,7 @@ import cn.brotherChun.erp.auth.dep.dao.dao.DepDao;
 import cn.brotherChun.erp.auth.dep.vo.DepModel;
 import cn.brotherChun.erp.auth.dep.vo.DepQueryModel;
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
+import cn.brotherChun.erp.auth.menu.vo.MenuModel;
 import cn.brotherChun.erp.util.base.BaseAction;
 import cn.brotherChun.erp.util.base.BaseDao;
 import cn.brotherChun.erp.util.base.BaseEbi;
@@ -34,8 +35,8 @@ public class GeneratorUtil {
 	private String dir ;	//cn/itcast/erp/auth/emp/vo
 	
 	public static void main(String[] args) throws Exception {
-		//EmpModel,
-		new GeneratorUtil(EmpModel.class);
+		//EmpModel,DepModel,RoleModel,ResModel,MenuModel
+		new GeneratorUtil(MenuModel.class);
 		System.out.println("struts.xml未进行映射");
 		System.out.println("HbmXml未添加关联关系");
 		System.out.println("QueryModel未添加自定义范围查询条件");
@@ -156,7 +157,7 @@ public class GeneratorUtil {
 		bw.write("	<!-- Action -->");
 		bw.newLine();
 		
-		bw.write("	<bean id=\""+s+"Action\" class=\""+pkg+".web."+b+"Action\" scope=\"prototype\">");
+		bw.write("	<bean id=\""+s+"Action\" class=\""+pkg+".action."+b+"Action\" scope=\"prototype\">");
 		bw.newLine();
 		
 		bw.write("		<property name=\""+s+"Ebi\" ref=\""+s+"Ebi\"/>");
@@ -224,7 +225,7 @@ public class GeneratorUtil {
 		bw.write("import "+pkg+".vo."+b+"QueryModel;");
 		bw.newLine();
 		
-		bw.write("import cn.itcast.erp.util.base.BaseAction;");
+		bw.write("import cn.brotherChun.erp.util.base.BaseAction;");
 		bw.newLine();
 		
 		bw.newLine();
