@@ -2,8 +2,10 @@ package cn.brotherChun.erp.auth.emp.vo;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import cn.brotherChun.erp.auth.dep.vo.DepModel;
+import cn.brotherChun.erp.auth.role.vo.RoleModel;
 import cn.brotherChun.erp.util.format.FormatUtil;
 
 public class EmpModel {
@@ -18,11 +20,20 @@ public class EmpModel {
 	private String address;
 	private Integer gender;
 	private Long birthday;
+	
+	//多对一
 	private DepModel dep;
+	//角色多对多
+	private Set<RoleModel> roles;
 	
 	private String birthdayView;
 	private String genderView;
 	private String lastLoginTimeView;
+	
+	private Long lastLoginTime;
+	private String lastLoginIp;
+	private Integer loginTimes;
+	private String resAll;
 	
 	//数据结构思想应用
 	public static final Integer EMP_GENDER_OF_MAN = 1;
@@ -36,10 +47,6 @@ public class EmpModel {
 		genderMap.put(EMP_GENDER_OF_MAN, EMP_GENDER_OF_MAN_VIEW);
 		genderMap.put(EMP_GENDER_OF_WOMAN, EMP_GENDER_OF_WOMAN_VIEW);
 	}
-	
-	private Long lastLoginTime;
-	private String lastLoginIp;
-	private Integer loginTimes;
 	
 	public EmpModel() {}
 
@@ -182,6 +189,22 @@ public class EmpModel {
 
 	public String getLastLoginTimeView() {
 		return lastLoginTimeView;
+	}
+
+	public Set<RoleModel> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleModel> roles) {
+		this.roles = roles;
+	}
+
+	public String getResAll() {
+		return resAll;
+	}
+
+	public void setResAll(String resAll) {
+		this.resAll = resAll;
 	}
 	
 }

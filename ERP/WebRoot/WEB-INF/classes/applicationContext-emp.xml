@@ -8,6 +8,8 @@
 		<bean id="empAction" class="cn.brotherChun.erp.auth.emp.action.EmpAction" scope="prototype">
 			<property name="depEbi" ref="depEbi"></property>
 			<property name="empEbi" ref="empEbi"></property>
+			<property name="roleEbi" ref="roleEbi"></property>
+			<property name="resEbi" ref="resEbi"></property>
 		</bean>
 		
 		<bean id="empEbi" class="cn.brotherChun.erp.auth.emp.business.ebo.EmpEbo">

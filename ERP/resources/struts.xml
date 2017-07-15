@@ -14,9 +14,12 @@
 				class="cn.brotherChun.erp.util.intercept.LoginIntercept"></interceptor>
 			<interceptor name="exceptionIntercept"
 				class="cn.brotherChun.erp.util.intercept.ExceptionIntercept"></interceptor>
+			<interceptor name="authIntercept"
+				class="cn.brotherChun.erp.util.intercept.AuthIntercept"></interceptor>
 			<interceptor-stack name="systemStack">
 				<interceptor-ref name="exceptionIntercept"></interceptor-ref>
 				<interceptor-ref name="loginIntercept"></interceptor-ref>
+				<interceptor-ref name="authIntercept"></interceptor-ref>
 				<interceptor-ref name="defaultStack"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
@@ -44,6 +47,14 @@
 
 		<!--Dep -->
 		<action name="dep_*" class="depAction" method="{1}">
+		</action>
+		
+		<!--Role  -->
+		<action name="role_*" class="roleAction" method="{1}">
+		</action>
+		
+		<!--Res  -->
+		<action name="res_*" class="resAction" method="{1}">
 		</action>
 	</package>
 </struts>

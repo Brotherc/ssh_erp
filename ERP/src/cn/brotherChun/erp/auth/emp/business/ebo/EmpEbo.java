@@ -1,12 +1,15 @@
 package cn.brotherChun.erp.auth.emp.business.ebo;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cn.brotherChun.erp.auth.emp.business.ebi.EmpEbi;
 import cn.brotherChun.erp.auth.emp.dao.dao.EmpDao;
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
 import cn.brotherChun.erp.auth.emp.vo.EmpQueryModel;
+import cn.brotherChun.erp.auth.role.vo.RoleModel;
 import cn.brotherChun.erp.util.exception.AppException;
 import cn.brotherChun.erp.util.format.MD5Utils;
 
@@ -48,13 +51,14 @@ public class EmpEbo implements EmpEbi {
 		empDao.delete(t);
 	}
 
+	//废弃
 	public void update(EmpModel t) {
 //		int n=1/0;
-		EmpModel temp = empDao.get(t.getUuid());
+/*		EmpModel temp = empDao.get(t.getUuid());
 		temp.setAddress(t.getAddress());
 		temp.setDep(t.getDep());
 		temp.setEmail(t.getEmail());
-		temp.setTele(t.getTele());
+		temp.setTele(t.getTele());*/
 	}
 
 	public EmpModel get(Serializable uuid) {
@@ -78,5 +82,35 @@ public class EmpEbo implements EmpEbi {
 		//对密码加密
 		newPwd=MD5Utils.md5(newPwd);
 		return empDao.updatePwdByUserNameAndPwd(userName,pwd,newPwd);
+	}
+
+	public void save(EmpModel emp, Long[] roles) {
+		//创建emp对象与roles的关系(多对多)
+		Set<RoleModel> setRole=new HashSet<RoleModel>();
+		for (Long uuid : roles) {
+			RoleModel role=new RoleModel();
+			role.setUuid(uuid);
+			setRole.add(role);
+		}
+		emp.setRoles(setRole);
+		save(emp);
+	}
+
+	public void update(EmpModel t, Long[] roles) {
+		EmpModel temp = empDao.get(t.getUuid());
+		temp.setAddress(t.getAddress());
+		temp.setDep(t.getDep());
+		temp.setEmail(t.getEmail());
+		temp.setTele(t.getTele());
+		
+		Set<RoleModel> roleSet=new HashSet<RoleModel>();
+		
+		for(Long uuid : roles){
+			RoleModel role=new RoleModel();
+			role.setUuid(uuid);
+			roleSet.add(role);
+		}
+		
+		temp.setRoles(roleSet);
 	}
 }

@@ -13,8 +13,8 @@ public class LoginIntercept extends AbstractInterceptor {
 		
 		String actionName=invocation.getProxy().getAction().getClass().getName();
 		String methodName=invocation.getProxy().getMethod();
-		String allName=actionName+".'"+methodName;
-		if("cn.brotherChun.erp.auth.emp.action.EmpAction.'login".equals(allName)){
+		String allName=actionName+"."+methodName;
+		if("cn.brotherChun.erp.auth.emp.action.EmpAction.login".equals(allName)){
 			return invocation.invoke();
 		}
 		EmpModel temp = (EmpModel) ActionContext.getContext().getSession().get(EmpModel.EMP_OBJECT_NAME);

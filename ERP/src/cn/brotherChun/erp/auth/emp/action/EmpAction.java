@@ -1,6 +1,7 @@
 package cn.brotherChun.erp.auth.emp.action;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,23 +12,39 @@ import cn.brotherChun.erp.auth.dep.vo.DepModel;
 import cn.brotherChun.erp.auth.emp.business.ebi.EmpEbi;
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
 import cn.brotherChun.erp.auth.emp.vo.EmpQueryModel;
+import cn.brotherChun.erp.auth.res.business.ebi.ResEbi;
+import cn.brotherChun.erp.auth.res.vo.ResModel;
+import cn.brotherChun.erp.auth.role.business.ebi.RoleEbi;
+import cn.brotherChun.erp.auth.role.vo.RoleModel;
 import cn.brotherChun.erp.util.base.BaseAction;
 
 public class EmpAction extends BaseAction {
 	
 	public EmpQueryModel eqm=new EmpQueryModel();
 	public EmpModel emp=new EmpModel();
+	
 	private EmpEbi empEbi;
 	private DepEbi depEbi;
+	private RoleEbi roleEbi;
+	private ResEbi resEbi;
 
 	public String newPwd;
+	public Long[] roles;
 	
+	public void setResEbi(ResEbi resEbi) {
+		this.resEbi = resEbi;
+	}
+
 	public void setEmpEbi(EmpEbi empEbi) {
 		this.empEbi = empEbi;
 	}
 	
 	public void setDepEbi(DepEbi depEbi) {
 		this.depEbi = depEbi;
+	}
+
+	public void setRoleEbi(RoleEbi roleEbi) {
+		this.roleEbi = roleEbi;
 	}
 
 	public String changePwd(){
@@ -70,6 +87,13 @@ public class EmpAction extends BaseAction {
 			return "loginFail";
 		}
 		else {
+			List<ResModel> resTemp = resEbi.getAllByEmpUuid(loginEmp.getUuid());
+			StringBuilder sb=new StringBuilder();
+			for(ResModel res:resTemp){
+				sb.append(res.getUrl());
+				sb.append(",");
+			}
+			loginEmp.setResAll(sb.toString());
 			putSession(EmpModel.EMP_OBJECT_NAME, loginEmp);
 			return "loginSuccess";
 		}
@@ -88,10 +112,21 @@ public class EmpAction extends BaseAction {
 	}
 	//跳转到添加页面
 	public String input(){
+		//加载所有角色信息数据
+		List<RoleModel> roleTemp = roleEbi.getAll();
+		put("roleList", roleTemp);
+		//加载所有部门信息数据
 		List<DepModel> depTemp = depEbi.getAll();
 		put("depList", depTemp);
+		
 		if(emp.getUuid()!=null){
 			emp=empEbi.get(emp.getUuid());
+			Set<RoleModel> setRole = emp.getRoles();
+			roles=new Long[setRole.size()];
+			int i=0;
+			for(RoleModel role:setRole){
+				roles[i++]=role.getUuid();
+			}
 		}
 		return INPUT;
 	}
@@ -101,10 +136,10 @@ public class EmpAction extends BaseAction {
 		if(emp.getUuid()==null){
 			//添加功能
 			//将收集的值传递到业务层，完成保存功能
-			empEbi.save(emp);		
+			empEbi.save(emp,roles);		
 		}else {
 			//修改功能
-			empEbi.update(emp);
+			empEbi.update(emp,roles);
 		}
 
 		return TO_LIST;

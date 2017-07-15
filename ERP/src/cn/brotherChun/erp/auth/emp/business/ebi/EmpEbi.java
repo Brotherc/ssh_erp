@@ -25,4 +25,8 @@ public interface EmpEbi extends BaseEbi<EmpModel, EmpQueryModel>{
 	 * @return 是否修改成功，如果返回false，表示修改失败
 	 */
 	public Boolean changePwd(String userName, String pwd, String newPwd);
+	
+	public void save(EmpModel emp,Long[] roles);
+	
+	public void update(EmpModel emp,Long[] roles);
 }

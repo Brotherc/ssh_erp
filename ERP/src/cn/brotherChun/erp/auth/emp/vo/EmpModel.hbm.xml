@@ -21,7 +21,14 @@
 		<property name="lastLoginIp"></property>
 		<property name="loginTimes"></property> 
 		
+		<!--对部门多对一  -->
 		<many-to-one name="dep" class="cn.brotherChun.erp.auth.dep.vo.DepModel" column="depUuid"></many-to-one>
+		
+		<!--对角色多对多  -->
+		<set name="roles" table="tbl_emp_role">
+			<key column="empUuid"></key>
+			<many-to-many class="cn.brotherChun.erp.auth.role.vo.RoleModel" column="roleUuid" ></many-to-many>
+		</set>
 	</class>
 	
 </hibernate-mapping>
