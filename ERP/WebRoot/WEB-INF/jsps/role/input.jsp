@@ -69,10 +69,7 @@
 				    <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">&nbsp;</td>
 				      <td width="82%" colspan="3">
-				      	<input type="checkbox"/>基础维护
-				      	<input type="checkbox"/>部门维护
-				      	<input type="checkbox"/>员工维护
-				      	<input type="checkbox"/>.....
+							<s:checkboxlist list="menuList" listKey="uuid" listValue="name" name="menus" ></s:checkboxlist>
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">

@@ -6,10 +6,10 @@
 <script type="text/javascript">
 	$(function() {
 		$("#all").click(function() {
-			$("[name=resources]:checkbox").attr("checked",$("#all").attr("checked")=="checked");
+			$("[name=roleUuids]:checkbox").attr("checked",$("#all").attr("checked")=="checked");
 		});
 		$("#reverse").click(function() {
-			$("[name=resources]:checkbox").each(function () {
+			$("[name=roleUuids]:checkbox").each(function () {
                 $(this).attr("checked", !$(this).attr("checked"));
             });
 
@@ -65,9 +65,7 @@
 				    <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">&nbsp;</td>
 				      <td width="82%" colspan="3">
-				      	<input type="checkbox"/>超级管理员
-				      	<input type="checkbox"/>销售部主管
-				      	<input type="checkbox"/>销售部员工
+				      	<s:checkboxlist list="roleList" listKey="uuid" listValue="name" name="roleUuids"></s:checkboxlist>
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">

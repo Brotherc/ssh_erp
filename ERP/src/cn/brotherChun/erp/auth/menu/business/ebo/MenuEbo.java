@@ -1,12 +1,15 @@
 package cn.brotherChun.erp.auth.menu.business.ebo;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import cn.brotherChun.erp.auth.menu.business.ebi.MenuEbi;
 import cn.brotherChun.erp.auth.menu.dao.dao.MenuDao;
 import cn.brotherChun.erp.auth.menu.vo.MenuModel;
 import cn.brotherChun.erp.auth.menu.vo.MenuQueryModel;
+import cn.brotherChun.erp.auth.role.vo.RoleModel;
 
 public class MenuEbo implements MenuEbi{
 	private MenuDao menuDao;
@@ -14,14 +17,16 @@ public class MenuEbo implements MenuEbi{
 		this.menuDao = menuDao;
 	}
 
+	//废弃
 	public void save(MenuModel mm) {
-		menuDao.add(mm);
+//		menuDao.add(mm);
 	}
 
+	//废弃
 	public void update(MenuModel mm) {
-		MenuModel temp = menuDao.get(mm.getUuid());
+/*		MenuModel temp = menuDao.get(mm.getUuid());
 		temp.setUrl(mm.getUrl());
-		temp.setName(mm.getName());
+		temp.setName(mm.getName());*/
 	}
 
 	public void delete(MenuModel mm) {
@@ -48,6 +53,40 @@ public class MenuEbo implements MenuEbi{
 
 	public List<MenuModel> getAllOneLevel() {
 		return menuDao.getByPuuidIsOneOrZero();
+	}
+
+	public void save(MenuModel mm, Long[] roleUuids) {
+		Set<RoleModel> roles=new HashSet<RoleModel>();
+		for(Long uuid:roleUuids){
+			RoleModel role=new RoleModel();
+			role.setUuid(uuid);
+			roles.add(role);
+		}
+		mm.setRoles(roles);
+		menuDao.add(mm);
+	}
+
+	public void update(MenuModel mm, Long[] roleUuids) {
+		MenuModel temp = menuDao.get(mm.getUuid());
+		
+		Set<RoleModel> roles=new HashSet<RoleModel>();
+		for(Long uuid:roleUuids){
+			RoleModel role=new RoleModel();
+			role.setUuid(uuid);
+			roles.add(role);
+		}
+		
+		temp.setRoles(roles);
+		temp.setUrl(mm.getUrl());
+		temp.setName(mm.getName());
+	}
+
+	public List<MenuModel> getAllOneLevel2(Long uuid) {
+		return menuDao.getAllByPuuidAndEmp(uuid);
+	}
+
+	public List<MenuModel> getAllTwoLevel(Long uuid, Long puuid) {
+		return menuDao.getAllTwoLevelByEmpAndPuuid(uuid,puuid);
 	}
 
 }

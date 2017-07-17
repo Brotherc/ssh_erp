@@ -2,6 +2,7 @@ package cn.brotherChun.erp.auth.role.vo;
 
 import java.util.Set;
 
+import cn.brotherChun.erp.auth.menu.vo.MenuModel;
 import cn.brotherChun.erp.auth.res.vo.ResModel;
 
 public class RoleModel {
@@ -11,6 +12,7 @@ public class RoleModel {
 	private String code;
 	
 	private Set<ResModel> reses;
+	private Set<MenuModel> menus;
 	
 	public RoleModel() {}
 	
@@ -45,6 +47,14 @@ public class RoleModel {
 
 	public void setReses(Set<ResModel> reses) {
 		this.reses = reses;
+	}
+
+	public Set<MenuModel> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(Set<MenuModel> menus) {
+		this.menus = menus;
 	}
 	
 }

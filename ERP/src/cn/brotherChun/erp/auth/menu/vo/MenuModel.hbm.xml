@@ -16,5 +16,9 @@
         	<key column="puuid"></key>
         	<one-to-many class="cn.brotherChun.erp.auth.menu.vo.MenuModel"/>
         </set>
+        <set name="roles" table="tbl_role_menu">
+        	<key column="menuUuid"></key>
+        	<many-to-many column="roleUuid" class="cn.brotherChun.erp.auth.role.vo.RoleModel"></many-to-many>
+        </set>
     </class>
 </hibernate-mapping>

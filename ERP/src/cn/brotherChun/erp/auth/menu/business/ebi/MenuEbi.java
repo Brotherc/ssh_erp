@@ -12,4 +12,12 @@ import cn.brotherChun.erp.util.base.BaseEbi;
 public interface MenuEbi extends BaseEbi<MenuModel,MenuQueryModel>{
 
 	public List<MenuModel> getAllOneLevel();
+
+	public void save(MenuModel mm, Long[] roleUuids);
+
+	public void update(MenuModel mm, Long[] roleUuids);
+
+	public List<MenuModel> getAllOneLevel2(Long uuid);
+
+	public List<MenuModel> getAllTwoLevel(Long uuid, Long puuid);
 }

@@ -9,4 +9,8 @@ public interface MenuDao extends BaseDao<MenuModel> {
 
 	public List<MenuModel> getByPuuidIsOneOrZero();
 
+	public List<MenuModel> getAllByPuuidAndEmp(Long uuid);
+
+	public List<MenuModel> getAllTwoLevelByEmpAndPuuid(Long uuid, Long puuid);
+
 }

@@ -8,6 +8,7 @@
 		<bean id="roleAction" class="cn.brotherChun.erp.auth.role.action.RoleAction" scope="prototype">
 			<property name="roleEbi" ref="roleEbi"></property>
 			<property name="resEbi" ref="resEbi"></property>
+			<property name="menuEbi" ref="menuEbi"></property>
 		</bean>
 		
 		<bean id="roleEbi" class="cn.brotherChun.erp.auth.role.business.ebo.RoleEbo">

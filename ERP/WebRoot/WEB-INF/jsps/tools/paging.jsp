@@ -3,46 +3,58 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript">
 	$(function(){
-		var pageNum = ${pageNum};
-		var pageCount = ${pageCount};
-		if(pageCount == 1){
+		var pageNum=${pageNum};
+		var maxPageNum=${maxPageNum};
+		if(pageNum==1){
 			$("#fir").css("display","none");
 			$("#pre").css("display","none");
-			$("#next").css("display","none");
+			$("last").css("display","block");
+			$("#next").css("display","block");
+		}else if(pageNum==maxPageNum){
 			$("#last").css("display","none");
-		}else if(pageNum == 1){
+			$("#next").css("display","none");
+			$("#fir").css("display","block");
+			$("#pre").css("display","block");
+		}else if(maxPageNum==1){
 			$("#fir").css("display","none");
-			$("#pre").css("display","none");
-			$("#next").css("display","inline");
-			$("#last").css("display","inline");
-		}else if(pageNum == pageCount){
-			$("#fir").css("display","inline");
-			$("#pre").css("display","inline");
-			$("#next").css("display","none");
 			$("#last").css("display","none");
+			$("#pre").css("display","none");
+			$("#next").css("display","none");
 		}else{
-			$("#fir").css("display","inline");
-			$("#pre").css("display","inline");
-			$("#next").css("display","inline");
-			$("#last").css("display","inline");
+			$("#fir").css("display","block");
+			$("#pre").css("display","block");
+			$("last").css("display","block");
+			$("#next").css("display","block");
 		}
+		//首页
 		$("#fir").click(function(){
-			$("[name='pageNum']").val(1);
+			//收集页码值设置为指定值，提交表单
+			//获取原始源码值，然后设置为1，设置回去
+			$("[name=pageNum]").val(1);
 			$("form:first").submit();
 		});
-		$("#pre").click(function(){
-			$("[name='pageNum']").val($("[name='pageNum']").val()-1);
-			$("form:first").submit();
-		});
+		//下一页
 		$("#next").click(function(){
-			$("[name='pageNum']").val($("[name='pageNum']").val()*1+1);
+			//收集页码值设置为指定值，提交表单
+			//获取原始源码值，然后+1，设置回去
+			$("[name=pageNum]").val($("[name=pageNum]").val()*1+1);
 			$("form:first").submit();
 		});
+		//上一页
+		$("#pre").click(function(){
+			//收集页码值设置为指定值，提交表单
+			//获取原始源码值，然后-1，设置回去
+				$("[name=pageNum]").val($("[name=pageNum]").val()-1);
+			$("form:first").submit();
+		});
+		//末页
 		$("#last").click(function(){
-			$("[name='pageNum']").val(pageCount);
+			//收集页码值设置为指定值，提交表单
+			//获取原始源码值，然后-1，设置回去
+			$("[name=pageNum]").val(maxPageNum);
 			$("form:first").submit();
 		});
-
+		
 	});
 </script>
 <br/>
@@ -63,6 +75,6 @@
 		<td width="6%">
 			<a id="last" class="sye">末&nbsp;&nbsp;页</a>
 		</td>
-		<td width="12%">当前第<span style="color:red;">${pageNum}</span>/${pageCount}页</td>
+		<td width="12%">当前第<span style="color:red;">${pageNum}</span>/${maxPageNum}页</td>
 	</tr>
 </table>

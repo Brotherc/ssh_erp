@@ -2,6 +2,8 @@ package cn.brotherChun.erp.auth.menu.vo;
 
 import java.util.Set;
 
+import cn.brotherChun.erp.auth.role.vo.RoleModel;
+
 public class MenuModel {
 	
 	public static final Long MENU_SYSTEM_MENU_UUID=1L;
@@ -12,6 +14,7 @@ public class MenuModel {
 	private MenuModel parent;
 	
 	private Set<MenuModel> children;
+	private Set<RoleModel> roles;
 	
 	public MenuModel() {}
 
@@ -61,6 +64,14 @@ public class MenuModel {
 
 	public void setChildren(Set<MenuModel> children) {
 		this.children = children;
+	}
+
+	public Set<RoleModel> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleModel> roles) {
+		this.roles = roles;
 	}
 
 }
