@@ -14,6 +14,12 @@ public class LoginIntercept extends AbstractInterceptor {
 		String actionName=invocation.getProxy().getAction().getClass().getName();
 		String methodName=invocation.getProxy().getMethod();
 		String allName=actionName+"."+methodName;
+		
+		String operName=invocation.getProxy().getActionName();
+		if("page_login".equals(operName)){
+			return invocation.invoke();
+		}
+		
 		if("cn.brotherChun.erp.auth.emp.action.EmpAction.login".equals(allName)){
 			return invocation.invoke();
 		}

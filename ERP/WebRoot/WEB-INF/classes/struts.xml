@@ -8,7 +8,7 @@
 	<constant name="struts.ui.theme" value="simple" />
 	<constant name="struts.custom.i18n.resources" value="msg" />
 
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="json-default">
 		<interceptors>
 			<interceptor name="loginIntercept"
 				class="cn.brotherChun.erp.util.intercept.LoginIntercept"></interceptor>
@@ -27,7 +27,7 @@
 		<default-interceptor-ref name="systemStack"></default-interceptor-ref>
 
 		<global-results>
-			<result name="noLogin">WEB-INF/jsps/login.jsp</result>
+			<result name="noLogin">index.jsp</result>
 			<result name="list" >WEB-INF/jsps/${actionName}/list.jsp</result>
 			<result name="input" >WEB-INF/jsps/${actionName}/input.jsp</result>
 			<result name="toList" type="redirectAction">${actionName}_list</result>
@@ -59,6 +59,25 @@
 		
 		<!--Menu  -->
 		<action name="menu_*" class="menuAction" method="{1}">
+		</action>
+		
+		<!--Supplier  -->
+		<action name="supplier_*" class="supplierAction" method="{1}">
+		</action>
+		
+		<!--GoodsType  -->
+		<action name="goodsType_*" class="goodsTypeAction" method="{1}">
+			<result name="ajaxGetAllBySupplier" type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">
+					goodsTypeList\[\d+\]\.uuid,
+					goodsTypeList\[\d+\]\.name,
+				</param>
+			</result>
+		</action>
+		
+		<!--Goods  -->
+		<action name="goods_*" class="goodsAction" method="{1}">
 		</action>
 	</package>
 </struts>

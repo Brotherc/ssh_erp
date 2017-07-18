@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 引入约束 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.brotherChun.erp.invoice.goodstype.vo.GoodsTypeModel" table="tbl_goodstype">
+		<id name="uuid">
+			<generator class="native"/>
+		</id>
+		<property name="name"/>
+		<many-to-one name="supplier" column="supplierUuid" class="cn.brotherChun.erp.invoice.supplier.vo.SupplierModel"></many-to-one>
+	</class>
+	
+</hibernate-mapping>

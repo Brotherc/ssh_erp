@@ -1,2 +1,6 @@
 /cn
 /applicationContext-menu.xml
+/struts.xml
+/applicationContext-supplier.xml
+/applicationContext-goodsType.xml
+/applicationContext-goods.xml

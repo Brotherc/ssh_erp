@@ -1,5 +1,6 @@
 package cn.brotherChun.erp.util.format;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,5 +16,9 @@ public class FormatUtil {
 	public static final String formatDateTime(Long time){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return df.format(new Date(time));
+	}
+	public static final String formatMoney(Double money){
+		DecimalFormat df=new DecimalFormat("#.00");
+		return df.format(money);
 	}
 }
