@@ -10,4 +10,6 @@ public interface GoodsTypeEbi extends BaseEbi<GoodsTypeModel, GoodsTypeQueryMode
 
 	public List<GoodsTypeModel> getAllBySupplier(Long uuid);
 
+	public List<GoodsTypeModel> getAllUnionTwoBySupplier(Long uuid);
+
 }

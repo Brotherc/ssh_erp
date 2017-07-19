@@ -30,4 +30,9 @@ public class SupplierDaoImpl extends BaseDaoImpl<SupplierModel> implements Suppl
 		return this.getHibernateTemplate().find(hql);
 	}
 
+	public List<SupplierModel> getAllUnionTwo() {
+		String hql="select distinct supplier from GoodsModel goods join goods.gtm goodsType join goodsType.supplier supplier";
+		return this.getHibernateTemplate().find(hql);
+	}
+
 }

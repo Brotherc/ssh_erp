@@ -10,4 +10,6 @@ public interface SupplierEbi extends BaseEbi<SupplierModel, SupplierQueryModel>{
 
 	public List<SupplierModel> getAllUnion();
 
+	public List<SupplierModel> getAllUnionTwo();
+
 }

@@ -1,5 +1,7 @@
 package cn.brotherChun.erp.invoice.goods.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -34,6 +36,11 @@ public class GoodsDaoImpl extends BaseDaoImpl<GoodsModel> implements GoodsDao{
 			dc.add(Restrictions.ge("outPrice", goods.getOutPrice()));
 		if(goods.getOutPrice2()!=null&&goods.getOutPrice2()>0)
 			dc.add(Restrictions.le("outPrice", goods.getOutPrice2()));
+	}
+
+	public List<GoodsModel> getAllByGoodsTypeUuid(Long uuid) {
+		String hql="from GoodsModel where gtm.uuid = ?";
+		return this.getHibernateTemplate().find(hql,uuid);
 	}
 
 }

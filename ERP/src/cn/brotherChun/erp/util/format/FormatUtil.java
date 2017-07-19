@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class FormatUtil {
 	public static final String formatDate(Long time){
+		if(time==null) return "";
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		return df.format(new Date(time));
 	}
@@ -18,6 +19,7 @@ public class FormatUtil {
 		return df.format(new Date(time));
 	}
 	public static final String formatMoney(Double money){
+		if(money==null) return "";
 		DecimalFormat df=new DecimalFormat("#.00");
 		return df.format(money);
 	}

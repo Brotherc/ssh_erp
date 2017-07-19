@@ -26,4 +26,9 @@ public class GoodsTypeDaoImpl extends BaseDaoImpl<GoodsTypeModel> implements Goo
 		return this.getHibernateTemplate().find(hql,uuid);
 	}
 
+	public List<GoodsTypeModel> getAllUnionTwoBySupplier(Long uuid) {
+		String hql="select distinct goodsType from GoodsModel goods join goods.gtm goodsType where goodsType.supplier.uuid = ?";
+		return this.getHibernateTemplate().find(hql,uuid);
+	}
+
 }
