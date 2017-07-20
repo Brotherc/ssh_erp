@@ -48,4 +48,9 @@ public class EmpDaoImpl extends BaseDaoImpl<EmpModel> implements EmpDao {
 		return flag > 0;
 	}
 
+	public List<EmpModel> getAllByDepUuid(Long uuid) {
+		String hql="from EmpModel where dep.uuid = ?";
+		return this.getHibernateTemplate().find(hql,uuid);
+	}
+
 }

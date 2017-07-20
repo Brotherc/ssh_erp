@@ -10,6 +10,7 @@
 			<property name="supplierEbi" ref="supplierEbi"></property>
 			<property name="goodsTypeEbi" ref="goodsTypeEbi"></property>
 			<property name="goodsEbi" ref="goodsEbi"></property>
+			<property name="empEbi" ref="empEbi"></property>
 		</bean>
 		
 		<bean id="orderEbi" class="cn.brotherChun.erp.invoice.order.business.ebo.OrderEbo">

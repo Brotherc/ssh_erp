@@ -2,6 +2,8 @@ package cn.brotherChun.erp.invoice.order.action;
 
 import java.util.List;
 
+import cn.brotherChun.erp.auth.emp.business.ebi.EmpEbi;
+import cn.brotherChun.erp.auth.emp.vo.EmpModel;
 import cn.brotherChun.erp.invoice.goods.business.ebi.GoodsEbi;
 import cn.brotherChun.erp.invoice.goods.vo.GoodsModel;
 import cn.brotherChun.erp.invoice.goodstype.business.ebi.GoodsTypeEbi;
@@ -18,6 +20,7 @@ public class OrderAction extends BaseAction{
 	private SupplierEbi supplierEbi;
 	private GoodsTypeEbi goodsTypeEbi;
 	private GoodsEbi goodsEbi;
+	private EmpEbi empEbi;
 	
 	public Long supplierUuid;
 	public Long goodsTypeUuid;
@@ -31,6 +34,9 @@ public class OrderAction extends BaseAction{
 	public OrderModel order=new OrderModel();
 	public OrderQueryModel oqm=new OrderQueryModel();
 	
+	public void setEmpEbi(EmpEbi empEbi) {
+		this.empEbi = empEbi;
+	}
 	public void setGoodsEbi(GoodsEbi goodsEbi) {
 		this.goodsEbi = goodsEbi;
 	}
@@ -77,7 +83,7 @@ public class OrderAction extends BaseAction{
 		return TO_LIST;
 	}
 	public String buyList(){
-		setDataTotal(orderEbi.getCount(oqm));
+		setDataTotal(orderEbi.getCountBuy(oqm));
 		List<OrderModel> temp=orderEbi.getAllBuy(oqm,pageNum,pageCount);
 		put("orderList", temp);
 		return "buyList";
@@ -114,6 +120,59 @@ public class OrderAction extends BaseAction{
 	public String buyDetail(){
 		order=orderEbi.get(order.getUuid());
 		return "buyDetail";
+	}
+	public String buyCheckList(){
+		setDataTotal(orderEbi.getCountBuyCheck(oqm));
+		List<OrderModel> temp=orderEbi.getAllBuyCheck(oqm,pageNum,pageCount);
+		put("orderList", temp);
+		return "buyCheckList";
+	}
+	public String buyCheckDetail(){
+		order=orderEbi.get(order.getUuid());
+		return "buyCheckDetail";
+	}
+	public String buyCheckPass(){
+		orderEbi.updateBuyCheckPass(order.getUuid(),getLogin());
+		return "toBuyCheckPass";
+	}
+	public String buyCheckNoPass(){
+		orderEbi.updateBuyCheckNoPass(order.getUuid(),getLogin());
+		return "toBuyCheckNoPass";
+	}
+	
+	//任务指派
+	public String taskList(){
+		List<SupplierModel> supplierTemp=supplierEbi.getAll();
+		put("supplierList", supplierTemp);
+		setDataTotal(orderEbi.getCountTask(oqm));
+		List<OrderModel> temp=orderEbi.getAllTask(oqm,pageNum,pageCount);
+		put("orderList", temp);
+		
+		return "taskList";
+	}
+	public String taskDetail(){
+		List<EmpModel>empList=empEbi.getAllByDep(getLogin().getDep().getUuid());
+		put("empList", empList);
+		order=orderEbi.get(order.getUuid());
+		return "taskDetail";
+	}
+	public String assignTask(){
+		orderEbi.assignTask(order.getUuid(),order.getCompleter());
+		return "toTaskList";
+	}
+	public String tasks(){
+		setDataTotal(orderEbi.getCountTasksByCompleter(oqm,getLogin()));
+		List<OrderModel> temp=orderEbi.getAllTasksByCompleter(oqm,pageNum,pageCount,getLogin());
+		put("orderList", temp);
+		return "tasks";
+	}
+	public String tasksDetail(){
+		order=orderEbi.get(order.getUuid());
+		return "tasksDetail";
+	}
+	public String endTasks(){
+		orderEbi.endTasks(order.getUuid());
+		return "toTasks";
 	}
 	
 	//-----------ajax---------

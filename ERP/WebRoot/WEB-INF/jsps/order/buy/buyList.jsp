@@ -67,8 +67,8 @@
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
 						style="background:url(images/table_bg.gif) repeat-x;">
-						<td width="25%" height="30">订单号</td>
-						<td width="9%">供应商</td>
+						<td width="18%" height="30">订单号</td>
+						<td width="16%">供应商</td>
 						<td width="10%">制单人</td>
 						<td width="20%">制单时间</td>
 						<td width="10%">订单商品总量</td>

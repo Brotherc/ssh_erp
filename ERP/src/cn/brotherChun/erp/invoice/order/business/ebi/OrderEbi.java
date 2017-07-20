@@ -18,4 +18,29 @@ public interface OrderEbi extends BaseEbi<OrderModel, OrderQueryModel>{
 	public List<OrderModel> getAllBuy(OrderQueryModel oqm, Integer pageNum,
 			Integer pageCount);
 
+	public Integer getCountBuyCheck(OrderQueryModel oqm);
+
+	public List<OrderModel> getAllBuyCheck(OrderQueryModel oqm,
+			Integer pageNum, Integer pageCount);
+
+	public Integer getCountBuy(OrderQueryModel oqm);
+
+	public void updateBuyCheckPass(Long uuid, EmpModel login);
+	
+	public void updateBuyCheckNoPass(Long uuid, EmpModel login);
+
+	public Integer getCountTask(OrderQueryModel oqm);
+
+	public List<OrderModel> getAllTask(OrderQueryModel oqm, Integer pageNum,
+			Integer pageCount);
+
+	public void assignTask(Long uuid, EmpModel completer);
+
+	public List<OrderModel> getAllTasksByCompleter(OrderQueryModel oqm,
+			Integer pageNum, Integer pageCount, EmpModel login);
+
+	public Integer getCountTasksByCompleter(OrderQueryModel oqm, EmpModel login);
+
+	public void endTasks(Long uuid);
+
 }

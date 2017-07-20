@@ -1,5 +1,7 @@
 package cn.brotherChun.erp.auth.emp.business.ebi;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
@@ -29,4 +31,6 @@ public interface EmpEbi extends BaseEbi<EmpModel, EmpQueryModel>{
 	public void save(EmpModel emp,Long[] roles);
 	
 	public void update(EmpModel emp,Long[] roles);
+
+	public List<EmpModel> getAllByDep(Long uuid);
 }

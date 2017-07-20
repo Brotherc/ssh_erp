@@ -68,13 +68,13 @@
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
 						style="background:url(images/table_bg.gif) repeat-x;">
-						<td width="12%" height="30">供应商</td>
+						<td width="16%" height="30">供应商</td>
 						<td width="12%">商品名</td>
 						<td width="12%">生产厂家</td>
 						<td width="12%">产地</td>
 						<td width="12%">进货价格</td>
 						<td width="12%">销售价格</td>
-						<td width="12%">单位</td>
+						<td width="8%">单位</td>
 						<td width="16%">操作</td>
 					</tr>
 					<s:iterator value="goodsList">

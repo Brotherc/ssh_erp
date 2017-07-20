@@ -113,4 +113,8 @@ public class EmpEbo implements EmpEbi {
 		
 		temp.setRoles(roleSet);
 	}
+
+	public List<EmpModel> getAllByDep(Long uuid) {
+		return empDao.getAllByDepUuid(uuid);
+	}
 }

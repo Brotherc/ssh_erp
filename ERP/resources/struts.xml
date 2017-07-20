@@ -86,7 +86,11 @@
 			<result name="buyInput">/WEB-INF/jsps/order/buy/buyInput.jsp</result>
 			<result name="toBuyList">/WEB-INF/jsps/order/buy/buyList.jsp</result>
 			
+			<result name="buyCheckList">/WEB-INF/jsps/order/buy/buyApproveList.jsp</result>
 			<result name="buyDetail">/WEB-INF/jsps/order/buy/buyDetailList.jsp</result>
+			<result name="buyCheckDetail">/WEB-INF/jsps/order/buy/buyApprove.jsp</result>
+			<result name="toBuyCheckPass" type="redirectAction">order_buyCheckList</result>
+			<result name="toBuyCheckNoPass" type="redirectAction">order_buyCheckList</result>
 			<result name="ajaxGetGtmAndGm" type="json">
 				<param name="root">action</param>
 				<param name="includeProperties">
@@ -113,6 +117,16 @@
 					goods\.inPriceView,
 				</param>
 			</result>
+		</action>
+		
+		<!--Transport  -->
+		<action name="transport_*" class="orderAction" method="{1}">
+			<result name="taskList">/WEB-INF/jsps/transport/taskList.jsp</result>
+			<result name="taskDetail">/WEB-INF/jsps/transport/taskDetail.jsp</result>
+			<result name="toTaskList" type="redirectAction">transport_taskList</result>
+			<result name="tasks">/WEB-INF/jsps/transport/tasks.jsp</result>
+			<result name="tasksDetail">/WEB-INF/jsps/transport/tasksDetail.jsp</result>
+			<result name="toTasks" type="redirectAction">transport_tasks</result>
 		</action>
 		
 		<!--OrderDetail  -->
