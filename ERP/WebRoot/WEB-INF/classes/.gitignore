@@ -5,3 +5,4 @@
 /applicationContext-goodsType.xml
 /applicationContext-goods.xml
 /applicationContext-order.xml
+/applicationContext-orderDetail.xml

@@ -9,6 +9,24 @@
 		<id name="uuid">
 			<generator class="native"/>
 		</id>
+		<property name="orderNum"></property>
+		<property name="createTime"></property>
+		<property name="checkTime"></property>
+		<property name="endTime"></property>
+		<property name="orderType"></property>
+		<property name="type"></property>
+		<property name="totalNum"></property>
+		<property name="totalPrice"></property>
+		
+		<many-to-one name="checker" column="checker" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
+		<many-to-one name="creater" column="creater" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
+		<many-to-one name="completer" column="completer" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
+		<many-to-one name="supplier" column="supplierUuid" class="cn.brotherChun.erp.invoice.supplier.vo.SupplierModel"></many-to-one>
+								
+		<set name="orderDetails" cascade="save-update" inverse="true" order-by="uuid">
+			<key column="orderUuid" ></key>
+			<one-to-many class="cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel"/>
+		</set>
 	</class>
 	
 </hibernate-mapping>

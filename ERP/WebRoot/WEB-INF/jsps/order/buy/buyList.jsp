@@ -19,23 +19,20 @@
 		</div>
 	</div>
 	<div class="content-text">
-		<form action="list.jsp" method="post"> 
+		<s:form action="order_buyList" method="post"> 
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
 					<tr>
 						<td height="30">订单状态</td>
 						<td> 
-							<select class="kuan" style="width:113px">
-								<option value="-1">----请-选-择----</option>
-								<option value="1">未审核</option>
-								<option value="0">已审核</option>
-								<option value="0">正在采购</option>
-								<option value="0">入库完成</option>
-							</select> 
+							<s:select name="oqm.type" list="@cn.brotherChun.erp.invoice.order.vo.OrderModel@buyMap" cssClass="kuan" cssStyle="width:113px" headerKey="1" headerValue="----请-选-择----" />
+
 						</td>
 						<td>下单人:</td>
-						<td><input type="text" size="14" /></td>
+						<td>
+							<s:textfield name="oqm.creater.name" size="14"/>
+						</td>
 						<td>总量:</td>
 						<td><input type="text" size="14" /></td>
 						<td>到 </td>
@@ -79,21 +76,26 @@
 						<td width="5%">详情</td>
 						<td width="9%">订单状态</td>
 					</tr>
+					<s:iterator value="orderList">
 					<tr align="center" bgcolor="#FFFFFF">
-						<td width="13%" height="30">32478dhyfjahfajd32</td>
-						<td>七匹狼</td>
-						<td>张三</td>
-						<td>2014-9-29</td>
-						<td>188</td>
-						<td align="right">788.04 元</td>
+						<td width="13%" height="30">${orderNum }</td>
+						<td>${supplier.name }</td>
+						<td>${creater.name }</td>
+						<td>${createTimeView }</td>
+						<td>${totalNum }</td>
+						<td align="right">${totalPrice }元</td>
 						<td>
-							<a href="inDetailList.jsp" class="xiu">详情</a>
+							<s:a action="order_buyDetail" cssClass="xiu">
+								<s:param name="order.uuid" value="uuid"></s:param>
+								详情
+							</s:a>
 						</td>
-						<td>未审核</td>
+						<td>${typeView }</td>
 					</tr>
+					</s:iterator>
 				</table>
 			</div>
-		</form>
+		</s:form>
 	</div>
 	<div class="content-bbg"></div>
 </div>

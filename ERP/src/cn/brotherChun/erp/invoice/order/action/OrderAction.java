@@ -24,6 +24,10 @@ public class OrderAction extends BaseAction{
 	public Long goodsUuid;
 	public String usedGoodsUuid;
 	
+	public Long[] goodsUuids;
+	public Integer[] nums;
+	public Double[] prices;
+	
 	public OrderModel order=new OrderModel();
 	public OrderQueryModel oqm=new OrderQueryModel();
 	
@@ -73,6 +77,9 @@ public class OrderAction extends BaseAction{
 		return TO_LIST;
 	}
 	public String buyList(){
+		setDataTotal(orderEbi.getCount(oqm));
+		List<OrderModel> temp=orderEbi.getAllBuy(oqm,pageNum,pageCount);
+		put("orderList", temp);
 		return "buyList";
 	}
 	public String buyInput(){
@@ -100,6 +107,15 @@ public class OrderAction extends BaseAction{
 	public List<GoodsModel> getGoodsList() {
 		return goodsList;
 	}
+	public String buySave(){
+		orderEbi.saveBuy(order,goodsUuids,nums,prices,getLogin());
+		return "toBuyList";
+	}
+	public String buyDetail(){
+		order=orderEbi.get(order.getUuid());
+		return "buyDetail";
+	}
+	
 	//-----------ajax---------
 	public String ajaxGetGtmAndGm(){
 		

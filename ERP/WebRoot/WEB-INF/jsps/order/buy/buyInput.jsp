@@ -164,7 +164,7 @@
 					$tr.append($td1);
 					
 					//创建td组件，生成商品select
-					var goodsSelectStr = "<select name='gmUuids' class='goods' style='width:200px'>";
+					var goodsSelectStr = "<select name='goodsUuids' class='goods' style='width:200px'>";
 					for(i = 0;i<goodsList.length;i++){
 						goodsSelectStr+="<option value='";
 						goodsSelectStr+=goodsList[i].uuid;
@@ -280,7 +280,7 @@
 		</div>
 	</div>
 	<div class="content-text">
-		<form action="inList.jsp" method="post">
+		<s:form action="order_buySave" method="post">
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
@@ -290,7 +290,7 @@
 					<tr>
 						<td width="68px" height="30">供应商：</td>
 						<td width="648px">
-							<s:select list="supplierList" cssStyle="width:190px" cssClass="kuan" listKey="uuid" listValue="name" id="supplier"/>
+							<s:select name="order.supplier.uuid" list="supplierList" cssStyle="width:190px" cssClass="kuan" listKey="uuid" listValue="name" id="supplier"/>
 						</td>
 						<td height="30">
 							<a id="add"><img src="images/can_b_02.gif" border="0" /> </a>
@@ -312,10 +312,10 @@
 					</tr>
 					<tr align="center" bgcolor="#FFFFFF">
 						<td height="30">
-						<s:select list="goodsTypeList" cssStyle="width:200px" cssClass="goodsType" listKey="uuid" listValue="name"/>
+						<s:select list="goodsTypeList" cssStyle="width:200px" cssClass="goodsType" listKey="uuid" listValue="name" />
 						</td>
 						<td>
-							<s:select list="goodsList" cssStyle="width:200px" cssClass="goods" listKey="uuid" listValue="name"/>
+							<s:select list="goodsList" cssStyle="width:200px" cssClass="goods" listKey="uuid" listValue="name" name="goodsUuids"/>
 						</td>
 						<td><input name="nums" class="num order_num" style="width:67px;border:1px solid black;text-align:right;padding:2px" type="text" value="1"/></td>
 						<td><input name="prices" class="prices order_num" style="width:93px;border:1px solid black;text-align:right;padding:2px" type="text" value="${goodsList[0].inPriceView }"/> 元</td>
@@ -347,7 +347,7 @@
 				</div>
 			</div>
 			</div>
-		</form>
+		</s:form>
 	</div>
 	
 	<div class="content-bbg"></div>
