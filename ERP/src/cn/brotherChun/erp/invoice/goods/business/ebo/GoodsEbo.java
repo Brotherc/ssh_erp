@@ -17,6 +17,9 @@ public class GoodsEbo implements GoodsEbi{
 	}
 
 	public void save(GoodsModel t) {
+		t.setUseNum(0);
+		t.setMinNum(15);
+		t.setMaxNum(100);
 		goodsDao.add(t);
 	}
 
@@ -47,6 +50,14 @@ public class GoodsEbo implements GoodsEbi{
 
 	public List<GoodsModel> getAllByGoodsType(Long uuid) {
 		return goodsDao.getAllByGoodsTypeUuid(uuid);
+	}
+
+	public void goodsUseNumUpdate() {
+		goodsDao.goodsUseNumUpdate();
+	}
+
+	public List<Object[]> getWarmInfo() {
+		return goodsDao.getWarmInfo();
 	}
 
 }

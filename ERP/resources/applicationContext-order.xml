@@ -11,10 +11,14 @@
 			<property name="goodsTypeEbi" ref="goodsTypeEbi"></property>
 			<property name="goodsEbi" ref="goodsEbi"></property>
 			<property name="empEbi" ref="empEbi"></property>
+			<property name="storeEbi" ref="storeEbi"></property>
 		</bean>
 		
 		<bean id="orderEbi" class="cn.brotherChun.erp.invoice.order.business.ebo.OrderEbo">
 			<property name="orderDao" ref="orderDao"></property>
+			<property name="orderDetailDao" ref="orderDetailDao"></property>
+			<property name="storeDetailDao" ref="storeDetailDao"></property>
+			<property name="operDetailDao" ref="operDetailDao"></property>
 		</bean>
 		
 		<bean id="orderDao" class="cn.brotherChun.erp.invoice.order.dao.impl.OrderDaoImpl">

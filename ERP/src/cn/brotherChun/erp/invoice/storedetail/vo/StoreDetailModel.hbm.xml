@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 引入约束 -->
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.brotherChun.erp.invoice.storedetail.vo.StoreDetailModel" table="tbl_storedetail">
+		<id name="uuid">
+			<generator class="native"/>
+		</id>
+		<property name="num"/>
+		
+		<many-to-one name="store" column="storeUuid" class="cn.brotherChun.erp.invoice.store.vo.StoreModel"></many-to-one>
+		<many-to-one name="goods" column="goodsUuid" class="cn.brotherChun.erp.invoice.goods.vo.GoodsModel"></many-to-one>
+	</class>
+	
+</hibernate-mapping>

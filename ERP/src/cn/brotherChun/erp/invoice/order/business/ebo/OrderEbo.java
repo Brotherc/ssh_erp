@@ -7,16 +7,38 @@ import java.util.Set;
 
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
 import cn.brotherChun.erp.invoice.goods.vo.GoodsModel;
+import cn.brotherChun.erp.invoice.operdetail.dao.dao.OperDetailDao;
+import cn.brotherChun.erp.invoice.operdetail.vo.OperDetailModel;
 import cn.brotherChun.erp.invoice.order.business.ebi.OrderEbi;
 import cn.brotherChun.erp.invoice.order.dao.dao.OrderDao;
 import cn.brotherChun.erp.invoice.order.vo.OrderModel;
 import cn.brotherChun.erp.invoice.order.vo.OrderQueryModel;
+import cn.brotherChun.erp.invoice.orderdetail.dao.dao.OrderDetailDao;
 import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel;
+import cn.brotherChun.erp.invoice.store.dao.dao.StoreDao;
+import cn.brotherChun.erp.invoice.store.vo.StoreModel;
+import cn.brotherChun.erp.invoice.storedetail.dao.dao.StoreDetailDao;
+import cn.brotherChun.erp.invoice.storedetail.vo.StoreDetailModel;
 import cn.brotherChun.erp.util.exception.AppException;
 import cn.brotherChun.erp.util.num.NumUtil;
 
 public class OrderEbo implements OrderEbi{
 	private OrderDao orderDao;
+	private OrderDetailDao orderDetailDao;
+	private StoreDetailDao storeDetailDao;
+	private OperDetailDao operDetailDao;
+
+	public void setOperDetailDao(OperDetailDao operDetailDao) {
+		this.operDetailDao = operDetailDao;
+	}
+
+	public void setStoreDetailDao(StoreDetailDao storeDetailDao) {
+		this.storeDetailDao = storeDetailDao;
+	}
+
+	public void setOrderDetailDao(OrderDetailDao orderDetailDao) {
+		this.orderDetailDao = orderDetailDao;
+	}
 
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
@@ -73,6 +95,7 @@ public class OrderEbo implements OrderEbi{
 			odm.setNum(nums[i]);
 			odm.setPrice(prices[i]);
 			odm.setOrder(order);
+			odm.setSurplus(nums[i]);
 			set.add(odm);
 			totalNum+=nums[i];
 			totalPrice+=nums[i]*prices[i];
@@ -178,6 +201,70 @@ public class OrderEbo implements OrderEbi{
 		if(!order.getType().equals(OrderModel.ORDER_TYPE_OF_BUY_BUYING))
 			throw new AppException("对不起，请不要进行非法操作！");
 		order.setType(OrderModel.ORDER_TYPE_OF_BUY_IN_STORE);
+	}
+
+	public Integer getCountStore(OrderQueryModel oqm) {
+		oqm.setType(OrderModel.ORDER_TYPE_OF_BUY_IN_STORE);
+		return orderDao.getCount(oqm);
+	}
+
+	public List<OrderModel> getAllStore(OrderQueryModel oqm, Integer pageNum,
+			Integer pageCount) {
+		oqm.setType(OrderModel.ORDER_TYPE_OF_BUY_IN_STORE);
+		return orderDao.getAll(oqm, pageNum, pageCount);
+	}
+
+	public OrderDetailModel inGoods(Long orderDetailUuid, Long storeUuid,
+			Integer inStoreNum, EmpModel login) {
+		//入库
+		//订单明细中的剩余数量要更新
+		OrderDetailModel orderDetail = orderDetailDao.get(orderDetailUuid);
+		OrderModel order = orderDetail.getOrder();
+		if(!order.getType().equals(OrderModel.ORDER_TYPE_OF_BUY_IN_STORE)){
+			throw new AppException("请不要非法操作！");
+		}
+		if(orderDetail.getSurplus()<inStoreNum){
+			throw new AppException("请不要非法操作！");
+		}
+		orderDetail.setSurplus(orderDetail.getSurplus()-inStoreNum);
+		//库存数量要发生变化
+		StoreDetailModel storeDetail=storeDetailDao.getByGoodsAndStore(orderDetail.getGoods().getUuid(),storeUuid);
+		if(storeDetail!=null){
+			storeDetail.setNum(storeDetail.getNum()+inStoreNum);
+		}else{
+			StoreDetailModel storeDetailTemp=new StoreDetailModel();
+			GoodsModel goods=new GoodsModel();
+			goods.setUuid(orderDetail.getGoods().getUuid());
+			storeDetailTemp.setGoods(goods);
+			StoreModel store=new StoreModel();
+			store.setUuid(storeUuid);
+			storeDetailTemp.setStore(store);
+			storeDetailTemp.setNum(inStoreNum);
+			storeDetailDao.add(storeDetailTemp);
+		}
+		//数据要求可追踪，记录操作日志
+		OperDetailModel operDetail=new OperDetailModel();
+		operDetail.setEmp(login);
+		operDetail.setOperTime(System.currentTimeMillis());
+		operDetail.setType(OperDetailModel.OPERDETAIL_OF_TYPE_IN);
+		operDetail.setGoods(orderDetail.getGoods());
+		StoreModel store=new StoreModel();
+		store.setUuid(storeUuid);
+		operDetail.setStore(store);
+		operDetail.setNum(inStoreNum);
+		operDetailDao.add(operDetail);
+
+		//设置订单的状态为入库完毕
+		int num=0;
+		for(OrderDetailModel od:order.getOrderDetails()){
+			num+=od.getSurplus();
+		}
+		if(num==0){
+			order.setType(OrderModel.ORDER_TYPE_OF_BUY_COMPLETE);
+			order.setEndTime(System.currentTimeMillis());
+		}
+		
+		return orderDetail;
 	}
 
 

@@ -11,6 +11,7 @@
 		</id>
 		<property name="price"/>
 		<property name="num"/>
+		<property name="surplus"/>
 		
 		<many-to-one name="order" column="orderUuid" class="cn.brotherChun.erp.invoice.order.vo.OrderModel"></many-to-one>
 		<many-to-one name="goods" column="goodsUuid" class="cn.brotherChun.erp.invoice.goods.vo.GoodsModel"></many-to-one>

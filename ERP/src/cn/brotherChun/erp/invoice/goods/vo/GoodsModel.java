@@ -9,6 +9,9 @@ public class GoodsModel {
 	private String origin;
 	private String producer;
 	private String unit;
+	private Integer useNum;
+	private Integer minNum;
+	private Integer maxNum;
 	private Double inPrice;
 	private Double outPrice;
 	private GoodsTypeModel gtm;
@@ -51,6 +54,24 @@ public class GoodsModel {
 	}
 	public void setUnit(String unit) {
 		this.unit = unit;
+	}
+	public Integer getUseNum() {
+		return useNum;
+	}
+	public void setUseNum(Integer useNum) {
+		this.useNum = useNum;
+	}
+	public Integer getMinNum() {
+		return minNum;
+	}
+	public void setMinNum(Integer minNum) {
+		this.minNum = minNum;
+	}
+	public Integer getMaxNum() {
+		return maxNum;
+	}
+	public void setMaxNum(Integer maxNum) {
+		this.maxNum = maxNum;
 	}
 	public Double getInPrice() {
 		return inPrice;

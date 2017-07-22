@@ -13,6 +13,9 @@
 		<property name="origin"/>
 		<property name="producer"/>
 		<property name="unit"/>
+		<property name="useNum"/>
+		<property name="minNum"/>
+		<property name="maxNum"/>
 		<property name="inPrice"/>
 		<property name="outPrice"/>
 		<many-to-one name="gtm" column="goodsTypeUuid" class="cn.brotherChun.erp.invoice.goodstype.vo.GoodsTypeModel"></many-to-one>

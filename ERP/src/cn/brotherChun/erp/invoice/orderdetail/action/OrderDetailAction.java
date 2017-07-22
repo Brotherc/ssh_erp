@@ -1,4 +1,4 @@
-package cn.brotherChun.erp.invoice.orderdetail;
+package cn.brotherChun.erp.invoice.orderdetail.action;
 
 import java.util.List;
 
@@ -18,6 +18,10 @@ public class OrderDetailAction extends BaseAction{
 		this.orderDetailEbi = orderDetailEbi;
 	}
 	
+	public OrderDetailModel getOrderDetail() {
+		return orderDetail;
+	}
+
 	public String list(){
 		
 		setDataTotal(orderDetailEbi.getCount(odqm));
@@ -44,5 +48,12 @@ public class OrderDetailAction extends BaseAction{
 	public String delete(){
 		orderDetailEbi.delete(orderDetail);
 		return TO_LIST;
+	}
+	
+	//ajax
+	public String ajaxGetSurplus(){
+		orderDetail=orderDetailEbi.get(orderDetail.getUuid());
+		System.out.println(orderDetail.getSurplus()+"-----------------------");
+		return "ajaxGetSurplus";
 	}
 }

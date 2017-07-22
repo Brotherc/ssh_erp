@@ -5,7 +5,7 @@
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		">  
-		<bean id="orderDetailAction" class="cn.brotherChun.erp.invoice.orderdetail.OrderDetailAction" scope="prototype">
+		<bean id="orderDetailAction" class="cn.brotherChun.erp.invoice.orderdetail.action.OrderDetailAction" scope="prototype">
 			<property name="orderDetailEbi" ref="orderDetailEbi"></property>
 		</bean>
 		

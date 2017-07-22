@@ -91,6 +91,10 @@
 			<result name="buyCheckDetail">/WEB-INF/jsps/order/buy/buyApprove.jsp</result>
 			<result name="toBuyCheckPass" type="redirectAction">order_buyCheckList</result>
 			<result name="toBuyCheckNoPass" type="redirectAction">order_buyCheckList</result>
+			
+			
+			<result name="inStoreList">/WEB-INF/jsps/order/in/list.jsp</result>
+			<result name="inStoreDetail">/WEB-INF/jsps/order/in/inDetail.jsp</result>
 			<result name="ajaxGetGtmAndGm" type="json">
 				<param name="root">action</param>
 				<param name="includeProperties">
@@ -117,6 +121,13 @@
 					goods\.inPriceView,
 				</param>
 			</result>
+			
+			<result name="ajaxInGoods" type="json">
+				<param name="root">orderDetail</param>
+				<param name="includeProperties">
+					num,surplus
+				</param>
+			</result>
 		</action>
 		
 		<!--Transport  -->
@@ -131,6 +142,32 @@
 		
 		<!--OrderDetail  -->
 		<action name="orderDetail_*" class="orderDetailAction" method="{1}">
+			<result name="ajaxGetSurplus" type="json">
+				<param name="root">orderDetail</param>
+				<param name="includeProperties">surplus</param>
+			</result>
+		</action>
+		
+		<!--StoreDetail  -->
+		<action name="storeDetail_*" class="storeDetailAction" method="{1}">
+		</action>
+		
+		<!--OperDetail  -->
+		<action name="operDetail_*" class="operDetailAction" method="{1}">
+		</action>
+		
+		<!--Bill  -->
+		<action name="bill_*" class="billAction" method="{1}">
+			<result name="buyBillList">/WEB-INF/jsps/bill/in/inBill.jsp</result>
+			<result name="ajaxGetBillGoodsDetail" type="json">
+				<param name="root">action</param>
+				<param name="includeProperties">
+					billGoodsList\[\d+\]\.num,
+					billGoodsList\[\d+\]\.priceView,
+					billGoodsList\[\d+\]\.order\.orderNum,
+					billGoodsList\[\d+\]\.order\.createTimeView,
+				</param>
+			</result>
 		</action>
 	</package>
 </struts>

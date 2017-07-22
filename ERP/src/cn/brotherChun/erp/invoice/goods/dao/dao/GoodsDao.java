@@ -9,4 +9,8 @@ public interface GoodsDao extends BaseDao<GoodsModel>{
 
 	public List<GoodsModel> getAllByGoodsTypeUuid(Long uuid);
 
+	public void goodsUseNumUpdate();
+
+	public List<Object[]> getWarmInfo();
+
 }

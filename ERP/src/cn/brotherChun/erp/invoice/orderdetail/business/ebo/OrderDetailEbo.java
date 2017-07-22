@@ -3,6 +3,8 @@ package cn.brotherChun.erp.invoice.orderdetail.business.ebo;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.brotherChun.erp.invoice.goods.dao.dao.GoodsDao;
+import cn.brotherChun.erp.invoice.goods.vo.GoodsModel;
 import cn.brotherChun.erp.invoice.orderdetail.business.ebi.OrderDetailEbi;
 import cn.brotherChun.erp.invoice.orderdetail.dao.dao.OrderDetailDao;
 import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel;
@@ -16,6 +18,7 @@ public class OrderDetailEbo implements OrderDetailEbi{
 	}
 
 	public void save(OrderDetailModel t) {
+		t.setSurplus(t.getNum());
 		orderDetailDao.add(t);
 	}
 

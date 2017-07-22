@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cn.brotherChun.erp.auth.emp.vo.EmpModel;
 import cn.brotherChun.erp.invoice.order.vo.OrderModel;
 import cn.brotherChun.erp.invoice.order.vo.OrderQueryModel;
+import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel;
 import cn.brotherChun.erp.util.base.BaseEbi;
 
 @Transactional
@@ -42,5 +43,13 @@ public interface OrderEbi extends BaseEbi<OrderModel, OrderQueryModel>{
 	public Integer getCountTasksByCompleter(OrderQueryModel oqm, EmpModel login);
 
 	public void endTasks(Long uuid);
+
+	public Integer getCountStore(OrderQueryModel oqm);
+
+	public List<OrderModel> getAllStore(OrderQueryModel oqm, Integer pageNum,
+			Integer pageCount);
+
+	public OrderDetailModel inGoods(Long orderDetailUuid, Long storeUuid,
+			Integer inStoreNum, EmpModel login);
 
 }

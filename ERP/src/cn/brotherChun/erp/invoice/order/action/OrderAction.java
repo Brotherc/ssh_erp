@@ -11,6 +11,10 @@ import cn.brotherChun.erp.invoice.goodstype.vo.GoodsTypeModel;
 import cn.brotherChun.erp.invoice.order.business.ebi.OrderEbi;
 import cn.brotherChun.erp.invoice.order.vo.OrderModel;
 import cn.brotherChun.erp.invoice.order.vo.OrderQueryModel;
+import cn.brotherChun.erp.invoice.orderdetail.business.ebi.OrderDetailEbi;
+import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel;
+import cn.brotherChun.erp.invoice.store.business.ebi.StoreEbi;
+import cn.brotherChun.erp.invoice.store.vo.StoreModel;
 import cn.brotherChun.erp.invoice.supplier.business.ebi.SupplierEbi;
 import cn.brotherChun.erp.invoice.supplier.vo.SupplierModel;
 import cn.brotherChun.erp.util.base.BaseAction;
@@ -21,6 +25,7 @@ public class OrderAction extends BaseAction{
 	private GoodsTypeEbi goodsTypeEbi;
 	private GoodsEbi goodsEbi;
 	private EmpEbi empEbi;
+	private StoreEbi storeEbi;
 	
 	public Long supplierUuid;
 	public Long goodsTypeUuid;
@@ -34,6 +39,9 @@ public class OrderAction extends BaseAction{
 	public OrderModel order=new OrderModel();
 	public OrderQueryModel oqm=new OrderQueryModel();
 	
+	public void setStoreEbi(StoreEbi storeEbi) {
+		this.storeEbi = storeEbi;
+	}
 	public void setEmpEbi(EmpEbi empEbi) {
 		this.empEbi = empEbi;
 	}
@@ -174,6 +182,20 @@ public class OrderAction extends BaseAction{
 		orderEbi.endTasks(order.getUuid());
 		return "toTasks";
 	}
+	//入库
+	public String inStoreList(){
+		setDataTotal(orderEbi.getCountStore(oqm));
+		List<OrderModel> temp=orderEbi.getAllStore(oqm,pageNum,pageCount);
+		put("orderList", temp);
+		return "inStoreList";
+	}
+	public String inStoreDetail(){
+		List<StoreModel> temp = storeEbi.getAll();
+		put("storeList", temp);
+		System.out.println(temp.size());
+		order=orderEbi.get(order.getUuid());
+		return "inStoreDetail";
+	}
 	
 	//-----------ajax---------
 	public String ajaxGetGtmAndGm(){
@@ -225,5 +247,19 @@ public class OrderAction extends BaseAction{
 	public String ajaxGetGmPrice(){
 		goods = goodsEbi.get(goodsUuid);
 		return "ajaxGetGmPrice";
+	}
+	
+	public Long orderDetailUuid;
+	public Integer inStoreNum;
+	public Long storeUuid;
+	
+	private OrderDetailModel orderDetail;//入库后返回的订单数据，页面修改对应的剩余量与入库量
+	
+	public OrderDetailModel getOrderDetail() {
+		return orderDetail;
+	}
+	public String ajaxInGoods(){
+		orderDetail = orderEbi.inGoods(orderDetailUuid,storeUuid,inStoreNum,getLogin());
+		return "ajaxInGoods";
 	}
 }

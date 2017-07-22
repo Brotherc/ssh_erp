@@ -8,6 +8,7 @@ public class OrderDetailModel {
 	private Long uuid;
 	
 	private Integer num;
+	private Integer surplus;
 	
 	private Double price;
 	
@@ -28,6 +29,12 @@ public class OrderDetailModel {
 	public void setNum(Integer num) {
 		this.num = num;
 		this.totalPriceView=FormatUtil.formatMoney(price*num);
+	}
+	public Integer getSurplus() {
+		return surplus;
+	}
+	public void setSurplus(Integer surplus) {
+		this.surplus = surplus;
 	}
 	public Double getPrice() {
 		return price;

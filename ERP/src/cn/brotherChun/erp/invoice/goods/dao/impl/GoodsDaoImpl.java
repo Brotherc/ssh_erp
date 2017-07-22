@@ -2,6 +2,9 @@ package cn.brotherChun.erp.invoice.goods.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -41,6 +44,19 @@ public class GoodsDaoImpl extends BaseDaoImpl<GoodsModel> implements GoodsDao{
 	public List<GoodsModel> getAllByGoodsTypeUuid(Long uuid) {
 		String hql="from GoodsModel where gtm.uuid = ?";
 		return this.getHibernateTemplate().find(hql,uuid);
+	}
+
+	public void goodsUseNumUpdate() {
+		String hql="update GoodsModel goods set goods.useNum=(select count(odm.uuid) from OrderDetailModel odm where goods.uuid=odm.goods.uuid)";
+		this.getHibernateTemplate().bulkUpdate(hql);
+	}
+
+	public List<Object[]> getWarmInfo() {
+		SessionFactory sf = this.getHibernateTemplate().getSessionFactory();
+		Session session = sf.getCurrentSession();
+		String sql="select gm.name,sum(sdm.num)>=gm.maxNum ,sum(sdm.num)<=gm.minNum from tbl_storedetail sdm,tbl_goods gm where  sdm.goodsUuid = gm.uuid group by sdm.goodsUuid";
+		SQLQuery sq = session.createSQLQuery(sql);
+		return sq.list();
 	}
 
 }

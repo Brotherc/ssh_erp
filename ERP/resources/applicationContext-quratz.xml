@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">  
+    <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="startQuertz" lazy-init="true" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+<!-- 				<ref bean="doTime" /> -->
+				<ref bean="doTime2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 要调用的工作类 -->
+	<bean id="quartzJob" class="cn.brotherChun.erp.util.quartz.TimerTask">
+		<property name="goodsEbi" ref="goodsEbi"></property>
+		<property name="mailSender" ref="mailSender"></property>
+	</bean>
+	
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="jobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="quartzJob" />
+		<!-- 调用类中的方法名称 -->
+		<property name="targetMethod">
+			<value>goodsUseNumUpdate</value>
+		</property>
+	</bean>
+	<bean id="jobtask2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="quartzJob" />
+		<!-- 调用类中的方法名称 -->
+		<property name="targetMethod">
+			<value>outGoodsNum</value>
+		</property>
+	</bean>
+	
+	
+	<!-- 定义触发时间 -->
+	<bean id="doTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtask" />
+		</property>		
+		<property name="cronExpression">
+			<!-- cron表达式:在每天早上8点到晚上8点期间每1分钟触发一次 -->
+			<!-- <value>0 0/1 8-20 * * ?</value> -->
+			<!-- cron表达式:每5分钟触发一次 -->
+			<value>0 0 2 * * ?</value>
+		</property>
+	</bean>
+	<bean id="doTime2" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="jobtask2" />
+		</property>		
+		<property name="cronExpression">
+			<value>0 0 2 * * ?</value>
+		</property>
+	</bean>
+</beans>	
+	

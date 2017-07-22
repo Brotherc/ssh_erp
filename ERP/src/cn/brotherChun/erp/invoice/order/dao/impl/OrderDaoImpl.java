@@ -18,6 +18,8 @@ public class OrderDaoImpl extends BaseDaoImpl<OrderModel> implements OrderDao{
 	@Override
 	public void doCriteria(DetachedCriteria dc, BaseQueryModel bqm) {
 		OrderQueryModel oqm=(OrderQueryModel) bqm;
+		if(oqm.getType()!=null&&oqm.getType()!=-1)
+			dc.add(Restrictions.eq("type", oqm.getType()));	
 		if(oqm.getOrderType()!=null&&oqm.getOrderType()!=-1)
 			dc.add(Restrictions.eq("orderType", oqm.getOrderType()));
 		if(oqm.getCreater()!=null&&oqm.getCreater().getName()!=null&&oqm.getCreater().getName().trim().length()>0){

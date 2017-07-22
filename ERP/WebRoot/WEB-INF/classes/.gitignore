@@ -6,3 +6,9 @@
 /applicationContext-goods.xml
 /applicationContext-order.xml
 /applicationContext-orderDetail.xml
+/applicationContext-store.xml
+/applicationContext-storeDetail.xml
+/applicationContext-operDetail.xml
+/applicationContext-bill.xml
+/applicationContext-quratz.xml
+/applicationContext-mail.xml
