@@ -15,16 +15,6 @@ public class MenuModel {
 	
 	private Set<MenuModel> children;
 	private Set<RoleModel> roles;
-	
-	public MenuModel() {}
-
-	public MenuModel(Long uuid, String name, String url, MenuModel parent) {
-		super();
-		this.uuid = uuid;
-		this.name = name;
-		this.url = url;
-		this.parent = parent;
-	}
 
 	public Long getUuid() {
 		return uuid;

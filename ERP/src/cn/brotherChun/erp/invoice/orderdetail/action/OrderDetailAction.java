@@ -5,7 +5,6 @@ import java.util.List;
 import cn.brotherChun.erp.invoice.orderdetail.business.ebi.OrderDetailEbi;
 import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailModel;
 import cn.brotherChun.erp.invoice.orderdetail.vo.OrderDetailQueryModel;
-import cn.brotherChun.erp.invoice.supplier.vo.SupplierModel;
 import cn.brotherChun.erp.util.base.BaseAction;
 
 public class OrderDetailAction extends BaseAction{
@@ -22,6 +21,7 @@ public class OrderDetailAction extends BaseAction{
 		return orderDetail;
 	}
 
+	//列表
 	public String list(){
 		
 		setDataTotal(orderDetailEbi.getCount(odqm));
@@ -30,21 +30,23 @@ public class OrderDetailAction extends BaseAction{
 		return LIST;
 		
 	}
+	//添加
 	public String save(){
 		if(orderDetail.getUuid()==null){
 			orderDetailEbi.save(orderDetail);		
 		}else {
 			orderDetailEbi.update(orderDetail);
 		}
-
 		return TO_LIST;
 	}
+	//到添加
 	public String input(){
 		if(orderDetail.getUuid()!=null){
 			orderDetail=orderDetailEbi.get(orderDetail.getUuid());
 		}
 		return INPUT;
 	}
+	//删除
 	public String delete(){
 		orderDetailEbi.delete(orderDetail);
 		return TO_LIST;

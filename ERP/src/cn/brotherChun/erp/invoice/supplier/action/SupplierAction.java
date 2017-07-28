@@ -17,13 +17,7 @@ public class SupplierAction extends BaseAction{
 	public void setSupplierEbi(SupplierEbi supplierEbi) {
 		this.supplierEbi = supplierEbi;
 	}
-	public void setSm(SupplierModel sm) {
-		this.sm = sm;
-	}
-	public void setSqm(SupplierQueryModel sqm) {
-		this.sqm = sqm;
-	}
-	
+	//列表
 	public String list(){
 		
 		setDataTotal(supplierEbi.getCount(sqm));
@@ -32,6 +26,7 @@ public class SupplierAction extends BaseAction{
 		return LIST;
 		
 	}
+	//添加
 	public String save(){
 		if(sm.getUuid()==null){
 			supplierEbi.save(sm);		
@@ -41,12 +36,14 @@ public class SupplierAction extends BaseAction{
 
 		return TO_LIST;
 	}
+	//到添加
 	public String input(){
 		if(sm.getUuid()!=null){
 			sm=supplierEbi.get(sm.getUuid());
 		}
 		return INPUT;
 	}
+	//删除
 	public String delete(){
 		supplierEbi.delete(sm);
 		return TO_LIST;

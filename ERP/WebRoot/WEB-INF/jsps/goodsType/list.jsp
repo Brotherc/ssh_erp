@@ -56,8 +56,8 @@
 					</tr>
 					<s:iterator value="goodsTypeList">
 					<tr align="center" bgcolor="#FFFFFF">
-						<td width="30%" height="30">${name }</td>
-						<td>${supplier.name }</td> 
+						<td width="30%" height="30">${supplier.name }</td>
+						<td>${name }</td> 
 						<td>
 							<img src="images/icon_3.gif" /> 
 							<span style="line-height:12px; text-align:center;"> 

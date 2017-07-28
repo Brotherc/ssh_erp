@@ -12,6 +12,7 @@ import cn.brotherChun.erp.invoice.supplier.vo.SupplierModel;
 import cn.brotherChun.erp.util.base.BaseAction;
 
 public class GoodsAction extends BaseAction{
+	
 	private GoodsEbi goodsEbi;
 	private SupplierEbi supplierEbi;
 	private GoodsTypeEbi goodsTypeEbi;
@@ -22,24 +23,16 @@ public class GoodsAction extends BaseAction{
 	public void setGoodsTypeEbi(GoodsTypeEbi goodsTypeEbi) {
 		this.goodsTypeEbi = goodsTypeEbi;
 	}
-
 	public void setSupplierEbi(SupplierEbi supplierEbi) {
 		this.supplierEbi = supplierEbi;
 	}
-
-	public void setGoods(GoodsModel goods) {
-		this.goods = goods;
-	}
-
-	public void setGqm(GoodsQueryModel gqm) {
-		this.gqm = gqm;
-	}
-
 	public void setGoodsEbi(GoodsEbi goodsEbi) {
 		this.goodsEbi = goodsEbi;
 	}
+	
+	//列表
 	public String list(){
-		
+		//加载供应商全信息
 		List<SupplierModel> supplierTemp=supplierEbi.getAll();
 		put("supplierList", supplierTemp);
 		System.out.println(gqm.getInPrice2());
@@ -50,6 +43,7 @@ public class GoodsAction extends BaseAction{
 		return LIST;
 		
 	}
+	//添加
 	public String save(){
 		if(goods.getUuid()==null){
 			goodsEbi.save(goods);		
@@ -59,11 +53,12 @@ public class GoodsAction extends BaseAction{
 
 		return TO_LIST;
 	}
+	//到添加
 	public String input(){
-		
+		//加载所有具有类别信息的供应商信息
 		List<SupplierModel> supplierTemp = supplierEbi.getAllUnion();
 		put("supplierList", supplierTemp);
-		
+		//加载第一个供应商对应的所有商品类别信息
 		List<GoodsTypeModel> gtTemp=null;
 		Long goodsSupplierUuid=null;
 
@@ -77,6 +72,7 @@ public class GoodsAction extends BaseAction{
 		put("goodsTypeList", gtTemp);
 		return INPUT;
 	}
+	//删除
 	public String delete(){
 		goodsEbi.delete(goods);
 		return TO_LIST;

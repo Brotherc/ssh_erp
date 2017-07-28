@@ -14,7 +14,10 @@ import cn.brotherChun.erp.util.base.BaseQueryModel;
 public class MenuDaoImpl extends BaseDaoImpl<MenuModel> implements MenuDao{
 	@Override
 	public void doCriteria(DetachedCriteria dc, BaseQueryModel bqm) {
+		//设置过滤掉系统菜单的条件
+		//uuid不等于1
 		dc.add(Restrictions.not(Restrictions.eq("uuid", MenuModel.MENU_SYSTEM_MENU_UUID)));
+		
 		MenuModel menu=(MenuModel) bqm;
 		if(menu.getUrl()!=null&&menu.getUrl().trim().length()>0)
 			dc.add(Restrictions.eq("url", menu.getUrl().trim()));
@@ -22,7 +25,6 @@ public class MenuDaoImpl extends BaseDaoImpl<MenuModel> implements MenuDao{
 			dc.add(Restrictions.like("name", "%"+menu.getName().trim()+"%"));
 		if(menu.getParent()!=null&&menu.getParent().getUuid()!=-1)
 			dc.add(Restrictions.eq("parent.uuid", menu.getParent().getUuid()));
-			
 	}
 
 	public List<MenuModel> getByPuuidIsOneOrZero() {

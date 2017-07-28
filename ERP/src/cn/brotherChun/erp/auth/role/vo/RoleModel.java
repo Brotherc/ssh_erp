@@ -14,14 +14,6 @@ public class RoleModel {
 	private Set<ResModel> reses;
 	private Set<MenuModel> menus;
 	
-	public RoleModel() {}
-	
-	public RoleModel(Long uuid, String name, String code) {
-		super();
-		this.uuid = uuid;
-		this.name = name;
-		this.code = code;
-	}
 	public Long getUuid() {
 		return uuid;
 	}

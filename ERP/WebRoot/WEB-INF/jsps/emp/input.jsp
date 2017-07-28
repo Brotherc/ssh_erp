@@ -5,6 +5,21 @@
 <script type="text/javascript" src="js/Calendar.js"></script>
 <script type="text/javascript">
 	$(function() {
+		var allFlag=true;
+		var allCheck=function(){
+			$("[name=roles]:checkbox").each(function () {
+                if($(this).attr("checked")!="checked"){
+                	allFlag=false;
+                	return;
+                }
+            });
+			if(allFlag) {
+				$("#all").attr("checked",true);
+			}
+			else
+				$("#all").attr("checked",false);
+			allFlag=true;
+		}
 		$("#all").click(function() {
 			$("[name=roles]:checkbox").attr("checked",$("#all").attr("checked")=="checked");
 		});
@@ -12,7 +27,10 @@
 			$("[name=roles]:checkbox").each(function () {
                 $(this).attr("checked", !$(this).attr("checked"));
             });
-
+			allCheck();
+		});
+		$("[name=roles]:checkbox").click(function(){
+			allCheck();
 		});
 		$(function() {
 			$("#commit").click(function() {

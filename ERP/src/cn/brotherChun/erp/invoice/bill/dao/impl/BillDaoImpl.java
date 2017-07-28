@@ -25,6 +25,10 @@ public class BillDaoImpl extends HibernateDaoSupport implements BillDao{
 			dc.add(Restrictions.eq("o.type", bqm.getType()));
 		if(bqm.getSupplierUuid()!=null&&bqm.getSupplierUuid()!=-1)
 			dc.add(Restrictions.eq("s.uuid", bqm.getSupplierUuid()));
+		if(bqm.getStartTime()!=null)
+			dc.add(Restrictions.ge("o.createTime", bqm.getStartTime()));
+		if(bqm.getEndTime()!=null)
+			dc.add(Restrictions.le("o.endTime", bqm.getEndTime()));
 		
 		ProjectionList pList=Projections.projectionList();
 		pList.add(Projections.groupProperty("goods"));

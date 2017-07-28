@@ -22,9 +22,9 @@ public class ExceptionIntercept extends AbstractInterceptor{
 		}catch (Exception e) {
 			
 			//上线期
-//			ActionSupport as = (ActionSupport) invocation.getAction();
-//			as.addActionError("对不起，服务器已关闭，请联系管理员!");
-//			return "error";
+			//ActionSupport as = (ActionSupport) invocation.getAction();
+			//as.addActionError("对不起，服务器已关闭，请联系管理员!");
+			//return "error";
 			
 			//记录日志
 			//发送日志到程序员邮箱

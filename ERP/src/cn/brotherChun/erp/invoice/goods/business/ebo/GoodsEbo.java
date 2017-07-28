@@ -7,6 +7,7 @@ import cn.brotherChun.erp.invoice.goods.business.ebi.GoodsEbi;
 import cn.brotherChun.erp.invoice.goods.dao.dao.GoodsDao;
 import cn.brotherChun.erp.invoice.goods.vo.GoodsModel;
 import cn.brotherChun.erp.invoice.goods.vo.GoodsQueryModel;
+import cn.brotherChun.erp.invoice.goodstype.vo.GoodsTypeModel;
 
 public class GoodsEbo implements GoodsEbi{
 	
@@ -28,7 +29,33 @@ public class GoodsEbo implements GoodsEbi{
 	}
 
 	public void update(GoodsModel t) {
-		goodsDao.update(t);
+		GoodsModel temp = goodsDao.get(t.getUuid());
+		if(t.getGtm()!=null&&t.getGtm().getSupplier()!=null&&t.getGtm().getSupplier().getUuid()!=null){
+			GoodsTypeModel gtm = temp.getGtm();
+			gtm.setSupplier(t.getGtm().getSupplier());
+			temp.setGtm(gtm);
+		}
+		if(t.getGtm()!=null&&t.getGtm().getUuid()!=null)
+			temp.setGtm(t.getGtm());
+		if(t.getInPrice()!=null)
+			temp.setInPrice(t.getInPrice());
+		if(t.getOutPrice()!=null)
+			temp.setOutPrice(t.getOutPrice());
+		if(t.getName()!=null)
+			temp.setName(t.getName());
+		if(t.getOrigin()!=null)
+			temp.setOrigin(t.getOrigin());
+
+		if(t.getProducer()!=null)
+			temp.setProducer(t.getProducer());
+		if(t.getUnit()!=null)
+			temp.setUnit(t.getUnit());
+		if(t.getUseNum()!=null)
+			temp.setUseNum(t.getUseNum());
+		if(t.getMaxNum()!=null)
+			temp.setMaxNum(t.getMaxNum());
+		if(t.getMinNum()!=null)
+			temp.setMinNum(t.getMinNum());
 	}
 
 	public GoodsModel get(Serializable uuid) {

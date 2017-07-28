@@ -17,10 +17,13 @@ public class RoleAction extends BaseAction {
 	private ResEbi resEbi;
 	private RoleEbi roleEbi;
 	private MenuEbi menuEbi;
+	
 	public RoleModel role=new RoleModel();
 	public RoleQueryModel roleQ=new RoleQueryModel();
 	
+	//资源uuid
 	public Long[] reses;
+	//菜单uuid
 	public Long[] menus;
 	
 	public void setMenuEbi(MenuEbi menuEbi) {
@@ -34,15 +37,20 @@ public class RoleAction extends BaseAction {
 	public void setRoleEbi(RoleEbi roleEbi) {
 		this.roleEbi = roleEbi;
 	}
+	
+	//列表
 	public String list(){
 		setDataTotal(roleEbi.getCount(roleQ));
 		List<RoleModel> temp = roleEbi.getAll(roleQ, pageNum, pageCount);
 		put("roleList", temp);
 		return LIST;
 	}
+	//到添加
 	public String input(){
+		//加载资源列表
 		List<ResModel> temp = resEbi.getAll();
 		put("resList", temp);
+		//加载菜单信息列表
 		List<MenuModel> menuTemp = menuEbi.getAll();
 		put("menuList", menuTemp);
 		
@@ -50,6 +58,7 @@ public class RoleAction extends BaseAction {
 			role=roleEbi.get(role.getUuid());
 			
 			Set<ResModel> setRes = role.getReses();
+			//对reses初始化
 			reses=new Long[setRes.size()];
 			int i=0;
 			for(ResModel res : setRes){
@@ -65,6 +74,7 @@ public class RoleAction extends BaseAction {
 		}	
 		return INPUT;
 	}
+	//添加
 	public String save(){
 		if(role.getUuid()!=null)
 			roleEbi.update(role,reses,menus);
@@ -72,6 +82,7 @@ public class RoleAction extends BaseAction {
 			roleEbi.save(role,reses,menus);
 		return TO_LIST;
 	}
+	//删除
 	public String delete(){
 		roleEbi.delete(role);
 		return TO_LIST;

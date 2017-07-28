@@ -14,10 +14,11 @@ public class GoodsModel {
 	private Integer maxNum;
 	private Double inPrice;
 	private Double outPrice;
-	private GoodsTypeModel gtm;
 	
 	private String inPriceView;
 	private String outPriceView;
+	
+	private GoodsTypeModel gtm;
 	
 	public String getInPriceView() {
 		return inPriceView;

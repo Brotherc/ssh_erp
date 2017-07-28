@@ -13,9 +13,12 @@ public class DepDaoImpl extends BaseDaoImpl<DepModel> implements DepDao{
 
 	@Override
 	public void doCriteria(DetachedCriteria dc, BaseQueryModel bqm) {
+		
 		DepQueryModel dqm=(DepQueryModel) bqm;
+		
 		if(dqm.getName()!=null&&dqm.getName().trim().length()>0)
 			dc.add(Restrictions.like("name", "%"+dqm.getName().trim()+"%"));
+		
 		if(dqm.getTele()!=null&&dqm.getTele().trim().length()>0)
 			dc.add(Restrictions.like("tele", "%"+dqm.getTele().trim()+"%"));
 	}

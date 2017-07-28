@@ -16,7 +16,7 @@ public class OperDetailAction extends BaseAction{
 	public void setOperDetailEbi(OperDetailEbi operDetailEbi) {
 		this.operDetailEbi = operDetailEbi;
 	}
-	
+	//列表
 	public String list(){
 		
 		setDataTotal(operDetailEbi.getCount(odqm));
@@ -25,6 +25,7 @@ public class OperDetailAction extends BaseAction{
 		return LIST;
 		
 	}
+	//添加
 	public String save(){
 		if(operDetail.getUuid()==null){
 			operDetailEbi.save(operDetail);		
@@ -34,12 +35,14 @@ public class OperDetailAction extends BaseAction{
 
 		return TO_LIST;
 	}
+	//到添加
 	public String input(){
 		if(operDetail.getUuid()!=null){
 			operDetail=operDetailEbi.get(operDetail.getUuid());
 		}
 		return INPUT;
 	}
+	//删除
 	public String delete(){
 		operDetailEbi.delete(operDetail);
 		return TO_LIST;

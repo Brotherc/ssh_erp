@@ -104,7 +104,8 @@
 						</td>
 						<td width="70">开始日期:</td>
 						<td width="190">
-							<input type="text" size="18" onfocus="c.showMoreDay=false;c.show(this);" />
+							<input type="text" size="18" onfocus="c.showMoreDay=false;c.show(this);" value="${bqm.startTimeView}"/>
+							<s:hidden name="bqm.startTime"></s:hidden>
 						<td ><a id="query"> <img
 								src="images/can_b_01.gif" border="0" /> </a></td>
 					</tr>
@@ -119,7 +120,8 @@
 						</td>
 						<td>结束日期:</td>
 						<td width="190">
-							<input type="text" size="18" onfocus="c.showMoreDay=false;c.show(this);" />
+							<input type="text" size="18" onfocus="c.showMoreDay=false;c.show(this);" value="${bqm.endTimeView}"/>
+							<s:hidden name="bqm.endTime"></s:hidden>
 						<td>
 							<a href="demo.xls">
 								<img src="images/can_b_03.gif" border="0" />

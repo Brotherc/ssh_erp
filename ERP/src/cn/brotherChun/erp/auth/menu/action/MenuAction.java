@@ -29,7 +29,6 @@ public class MenuAction extends BaseAction{
 	public void setRoleEbi(RoleEbi roleEbi) {
 		this.roleEbi = roleEbi;
 	}
-
 	public void setMenuEbi(MenuEbi menuEbi) {
 		this.menuEbi = menuEbi;
 	}
@@ -49,10 +48,10 @@ public class MenuAction extends BaseAction{
 
 	//到添加
 	public String input(){
-		
+		//加载所有角色数据信息
 		List<RoleModel> roleTemp = roleEbi.getAll();
 		put("roleList", roleTemp);
-		
+		//加载所有的一级菜单
 		List<MenuModel> temp = menuEbi.getAllOneLevel();
 		put("parentMenuList", temp);
 		
@@ -60,6 +59,7 @@ public class MenuAction extends BaseAction{
 			mm = menuEbi.get(mm.getUuid());
 			
 			Set<RoleModel> roles = mm.getRoles();
+			//set->array
 			roleUuids=new Long[roles.size()];
 			int i=0;
 			for(RoleModel role:roles){
@@ -85,18 +85,22 @@ public class MenuAction extends BaseAction{
 		return TO_LIST;
 	}
 
+	//显示菜单
 	public void showMenu() throws Exception{
-		
-		HttpServletResponse response = ServletActionContext.getResponse();
+		//1.首先获取root参数
 		HttpServletRequest request = ServletActionContext.getRequest();
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter pw = response.getWriter();
 		String root=request.getParameter("root");
+		//编码设置
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html;charset=utf-8");
 		
+		PrintWriter pw = response.getWriter();
 		StringBuilder sb=new StringBuilder();
-		sb.append("[");
-		System.out.println(root);
+		
+		sb.append("[");	
+		//2.判断参数值   source   id
 		if("source".equals(root)){
+			//生成一级菜单
 			List<MenuModel> menuTemp=menuEbi.getAllOneLevel2(getLogin().getUuid());
 			for(MenuModel menu:menuTemp){
 				sb.append("{\"text\": \"");
@@ -106,6 +110,8 @@ public class MenuAction extends BaseAction{
 				sb.append("},");
 			}
 		}else{
+			//生成二级菜单项
+			//获取指定一级菜单的二级菜单项
 			List<MenuModel> menuTemp=menuEbi.getAllTwoLevel(getLogin().getUuid(),new Long(root));
 			System.out.println(menuTemp.size());
 			for(MenuModel menu:menuTemp){

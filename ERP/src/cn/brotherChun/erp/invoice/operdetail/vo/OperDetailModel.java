@@ -34,6 +34,7 @@ public class OperDetailModel {
 	private EmpModel emp;
 	private GoodsModel goods;
 	private StoreModel store;
+	
 	public Long getUuid() {
 		return uuid;
 	}

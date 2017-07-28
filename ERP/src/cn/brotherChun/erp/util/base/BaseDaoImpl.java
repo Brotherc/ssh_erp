@@ -13,6 +13,7 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
 
 	protected Class<T> entityClass=null;
 	
+	//将entityClass初始化
 	public BaseDaoImpl(){
 		Type genType = getClass().getGenericSuperclass();
 		Type[] params = ((ParameterizedType)genType).getActualTypeArguments();

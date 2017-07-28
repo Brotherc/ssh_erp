@@ -9,19 +9,19 @@
 		<id name="uuid">
 			<generator class="native"/>
 		</id>
-		<property name="orderNum"></property>
-		<property name="createTime"></property>
-		<property name="checkTime"></property>
-		<property name="endTime"></property>
-		<property name="orderType"></property>
-		<property name="type"></property>
-		<property name="totalNum"></property>
-		<property name="totalPrice"></property>
+		<property name="orderNum"/>
+		<property name="createTime"/>
+		<property name="checkTime"/>
+		<property name="endTime"/>
+		<property name="orderType"/>
+		<property name="type"/>
+		<property name="totalNum"/>
+		<property name="totalPrice"/>
 		
-		<many-to-one name="checker" column="checker" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
-		<many-to-one name="creater" column="creater" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
-		<many-to-one name="completer" column="completer" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"></many-to-one>
-		<many-to-one name="supplier" column="supplierUuid" class="cn.brotherChun.erp.invoice.supplier.vo.SupplierModel"></many-to-one>
+		<many-to-one name="checker" column="checker" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"/>
+		<many-to-one name="creater" column="creater" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"/>
+		<many-to-one name="completer" column="completer" class="cn.brotherChun.erp.auth.emp.vo.EmpModel"/>
+		<many-to-one name="supplier" column="supplierUuid" class="cn.brotherChun.erp.invoice.supplier.vo.SupplierModel"/>
 								
 		<set name="orderDetails" cascade="save-update" inverse="true" order-by="uuid">
 			<key column="orderUuid" ></key>

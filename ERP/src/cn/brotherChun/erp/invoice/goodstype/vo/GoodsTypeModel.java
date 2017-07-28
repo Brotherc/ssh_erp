@@ -8,14 +8,6 @@ public class GoodsTypeModel {
 	private String name;
 	private SupplierModel supplier;
 	
-	public GoodsTypeModel() {}
-	
-	public GoodsTypeModel(Long uuid, String name, SupplierModel supplier) {
-		super();
-		this.uuid = uuid;
-		this.name = name;
-		this.supplier = supplier;
-	}
 	public Long getUuid() {
 		return uuid;
 	}

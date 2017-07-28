@@ -11,15 +11,15 @@
 		</id>
 		<property name="name"/>
 		<property name="userName"/>
-		<property name="pwd"></property>
-		<property name="email"></property>
-		<property name="tele"></property>
-		<property name="address"></property>
-		<property name="gender"></property>
-		<property name="birthday"></property>
- 		<property name="lastLoginTime"></property>
-		<property name="lastLoginIp"></property>
-		<property name="loginTimes"></property> 
+		<property name="pwd"/>
+		<property name="email"/>
+		<property name="tele"/>
+		<property name="address"/>
+		<property name="gender"/>
+		<property name="birthday"/>
+ 		<property name="lastLoginTime"/>
+		<property name="lastLoginIp"/>
+		<property name="loginTimes"/> 
 		
 		<!--对部门多对一  -->
 		<many-to-one name="dep" class="cn.brotherChun.erp.auth.dep.vo.DepModel" column="depUuid"></many-to-one>

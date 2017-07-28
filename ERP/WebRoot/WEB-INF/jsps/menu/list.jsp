@@ -33,7 +33,7 @@
 						<td width="123">&nbsp;</td>
 						<td width="62">菜单名称</td>
 						<td width="142">
-							<s:textfield name="mm.name" size="18"></s:textfield>
+							<s:textfield name="mqm.name" size="18"></s:textfield>
 						</td>
 						<td width="60">所属菜单</td>
 						<td width="149">

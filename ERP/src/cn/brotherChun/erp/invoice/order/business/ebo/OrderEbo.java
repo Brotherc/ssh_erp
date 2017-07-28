@@ -75,12 +75,16 @@ public class OrderEbo implements OrderEbi{
 
 	public void saveBuy(OrderModel order, Long[] goodsUuids, Integer[] nums,
 			Double[] prices, EmpModel creater) {
-
+		//保存订单
+		//设置订单号:订单号唯一
 		order.setOrderNum(NumUtil.generatorOrderNum());
-		
+		//新保存的订单的状态是未审核
 		order.setType(OrderModel.ORDER_TYPE_OF_BUY_NO_CHECK);
+		//当前保存的是采购订单
 		order.setOrderType(OrderModel.ORDER_ORDERTYPE_OF_BUY);
+		//订单创建时间是当前系统时间
 		order.setCreateTime(System.currentTimeMillis());
+		//制单人
 		order.setCreater(creater);
 		
 		Integer totalNum=0;
@@ -88,20 +92,30 @@ public class OrderEbo implements OrderEbi{
 		
 		Set<OrderDetailModel> set=new HashSet<OrderDetailModel>();
 		for(int i=0;i<goodsUuids.length;i++){
+			//创建订单明细的对象并添加到集合中
 			OrderDetailModel odm=new OrderDetailModel();
+			//设置订单明细的商品
 			GoodsModel goods=new GoodsModel();
 			goods.setUuid(goodsUuids[i]);
 			odm.setGoods(goods);
+			//设置订单明细数量
 			odm.setNum(nums[i]);
+			//设置订单明细单价
 			odm.setPrice(prices[i]);
+			//设置所属的订单
 			odm.setOrder(order);
+			//设置订单剩余未入库数量值
 			odm.setSurplus(nums[i]);
+			//将明细对象加入集合
 			set.add(odm);
 			totalNum+=nums[i];
 			totalPrice+=nums[i]*prices[i];
 		}
+		//设置订单中对应的所有明细数据
 		order.setOrderDetails(set);
+		//设置订单总价值
 		order.setTotalPrice(totalPrice);
+		//设置订单总数量 
 		order.setTotalNum(totalNum);
 
 		orderDao.add(order);
@@ -114,6 +128,7 @@ public class OrderEbo implements OrderEbi{
 	
 	public List<OrderModel> getAllBuy(OrderQueryModel oqm, Integer pageNum,
 			Integer pageCount) {
+		//设置一个固定的条件，订单类别为采购
 		oqm.setOrderType(OrderModel.ORDER_ORDERTYPE_OF_BUY);
 		return orderDao.getAll(oqm, pageNum, pageCount);
 	}
@@ -130,15 +145,19 @@ public class OrderEbo implements OrderEbi{
 	}
 
 	public void updateBuyCheckPass(Long uuid, EmpModel checker) {
+		//快照更新
 		OrderModel temp = orderDao.get(uuid);
 		
-		//逻辑校验
+		//逻辑校验：比对的数据必须是从数据库中取出的数据，而不能使用页面传递的数据
 		if(!temp.getType().equals(OrderModel.ORDER_TYPE_OF_BUY_CHECK_PASS)){
 			throw new AppException("对不起，请不要进行非法操作！");
 		}
 		
+		//审核人
 		temp.setChecker(checker);
+		//审核时间
 		temp.setCheckTime(System.currentTimeMillis());
+		//type
 		temp.setType(OrderModel.ORDER_TYPE_OF_BUY_CHECK_PASS);
 	}
 
@@ -168,14 +187,18 @@ public class OrderEbo implements OrderEbi{
 
 	public List<OrderModel> getAllTask(OrderQueryModel oqm, Integer pageNum,
 			Integer pageCount) {
+		//运输任务必须是已经审核通过的
 		return orderDao.getAllTask(oqm,pageNum,pageCount,taskType);
 	}
 
 	public void assignTask(Long uuid, EmpModel completer) {
 		OrderModel order=orderDao.get(uuid);
+		//逻辑校验(集合包含性判定)
 		if(!order.getType().equals(OrderModel.ORDER_TYPE_OF_BUY_CHECK_PASS))
 			throw new AppException("对不起，请不要进行非法操作！");
+		//设置跟单人
 		order.setCompleter(completer);
+		//设置状态
 		order.setType(OrderModel.ORDER_TYPE_OF_BUY_BUYING);
 	}
 
@@ -195,11 +218,13 @@ public class OrderEbo implements OrderEbi{
 		oqm.setCompleter(completer);
 		return orderDao.getCountTaskByCompleter(oqm,tasksType);
 	}
-
+	//快照
 	public void endTasks(Long uuid) {
 		OrderModel order = orderDao.get(uuid);
+		//逻辑校验(集合包含性判定)
 		if(!order.getType().equals(OrderModel.ORDER_TYPE_OF_BUY_BUYING))
 			throw new AppException("对不起，请不要进行非法操作！");
+		//设置状态为入库中
 		order.setType(OrderModel.ORDER_TYPE_OF_BUY_IN_STORE);
 	}
 
@@ -226,12 +251,19 @@ public class OrderEbo implements OrderEbi{
 		if(orderDetail.getSurplus()<inStoreNum){
 			throw new AppException("请不要非法操作！");
 		}
+		//更新订单明细的剩余数量
 		orderDetail.setSurplus(orderDetail.getSurplus()-inStoreNum);
 		//库存数量要发生变化
+		//使用快照更新数量
+		//查询按照仓库与货物查询
 		StoreDetailModel storeDetail=storeDetailDao.getByGoodsAndStore(orderDetail.getGoods().getUuid(),storeUuid);
+		//判断该货物在指定仓库中有没有存储过
 		if(storeDetail!=null){
+			//如果存储过，快照更新
+			//修改当前库存数量
 			storeDetail.setNum(storeDetail.getNum()+inStoreNum);
 		}else{
+			//如果没有存储过，新增数据
 			StoreDetailModel storeDetailTemp=new StoreDetailModel();
 			GoodsModel goods=new GoodsModel();
 			goods.setUuid(orderDetail.getGoods().getUuid());
@@ -260,6 +292,7 @@ public class OrderEbo implements OrderEbi{
 			num+=od.getSurplus();
 		}
 		if(num==0){
+			//全部入库完毕
 			order.setType(OrderModel.ORDER_TYPE_OF_BUY_COMPLETE);
 			order.setEndTime(System.currentTimeMillis());
 		}

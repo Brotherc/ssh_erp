@@ -35,8 +35,10 @@ public class EmpDaoImpl extends BaseDaoImpl<EmpModel> implements EmpDao {
 			dc.add(Restrictions.like("email", "%"+eqm.getEmail().trim()+"%"));
 		if(eqm.getDep()!=null&&eqm.getDep().getUuid()!=null&&eqm.getDep().getUuid()!=-1)
 			dc.add(Restrictions.eq("dep", eqm.getDep()));
+		//birthday
 		if(eqm.getBirthday()!=null)
 			dc.add(Restrictions.ge("birthday", eqm.getBirthday()));
+		//birthday2
 		if(eqm.getBirthday2()!=null)
 			dc.add(Restrictions.le("birthday", eqm.getBirthday2()+86400000-1));
 	}

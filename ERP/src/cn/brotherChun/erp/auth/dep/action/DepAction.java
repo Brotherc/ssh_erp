@@ -12,12 +12,13 @@ public class DepAction extends BaseAction {
 	
 	public DepModel dep=new DepModel();
 	public DepQueryModel depQ=new DepQueryModel();
+	
 	private DepEbi depEbi;
 	
 	public void setDepEbi(DepEbi depEbi) {
 		this.depEbi = depEbi;
 	}
-	//查询功能
+	//跳转到列表页面
 	public String list(){
 		setDataTotal(depEbi.getCount(depQ));
 		//根据查询条件获取数据(查询条件封装在depQ对象中)
@@ -28,14 +29,14 @@ public class DepAction extends BaseAction {
 		return LIST;
 	}
 	
-	//跳转到添加页面
+	//跳转到添加部门页面
 	public String input(){
 		if(dep.getUuid()!=null){
 			dep=depEbi.get(dep.getUuid());
 		}
 		return INPUT;
 	}
-	//添加功能
+	//添加部门
 	public String save(){
 		//根据页面传递的参数判断当前操作时添加还是修改，依据是否提供dep.uuid
 		if(dep.getUuid()==null){
@@ -49,6 +50,7 @@ public class DepAction extends BaseAction {
 
 		return TO_LIST;
 	}
+	//删除部门
 	public String delete(){
 		depEbi.delete(dep);
 		return TO_LIST;

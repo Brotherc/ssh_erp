@@ -32,5 +32,10 @@ public interface EmpEbi extends BaseEbi<EmpModel, EmpQueryModel>{
 	
 	public void update(EmpModel emp,Long[] roles);
 
+	/**
+	 * 获取指定部门所有员工信息
+	 * @param uuid 部门uuid
+	 * @return
+	 */
 	public List<EmpModel> getAllByDep(Long uuid);
 }

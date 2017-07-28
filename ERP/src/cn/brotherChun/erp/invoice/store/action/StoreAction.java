@@ -16,6 +16,7 @@ public class StoreAction extends BaseAction{
 	public void setStoreEbi(StoreEbi storeEbi) {
 		this.storeEbi = storeEbi;
 	}
+	//列表
 	public String list(){
 		
 		setDataTotal(storeEbi.getCount(sqm));
@@ -24,6 +25,7 @@ public class StoreAction extends BaseAction{
 		return LIST;
 		
 	}
+	//添加
 	public String save(){
 		if(store.getUuid()==null){
 			storeEbi.save(store);		
@@ -33,12 +35,14 @@ public class StoreAction extends BaseAction{
 
 		return TO_LIST;
 	}
+	//到添加
 	public String input(){
 		if(store.getUuid()!=null){
 			store=storeEbi.get(store.getUuid());
 		}
 		return INPUT;
 	}
+	//删除
 	public String delete(){
 		storeEbi.delete(store);
 		return TO_LIST;

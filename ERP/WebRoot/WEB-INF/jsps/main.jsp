@@ -75,6 +75,6 @@
 		<!--"footer"end-->
 	</div>
 	<!--"container"end-->
-	<%@include file="/jsps/tools/mask.jsp"%>
+	<%@include file="/WEB-INF/jsps/tools/mask.jsp"%>
 </body>
 </html>

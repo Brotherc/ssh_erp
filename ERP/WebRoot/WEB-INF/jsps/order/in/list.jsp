@@ -18,15 +18,19 @@
 		</div>
 	</div>
 	<div class="content-text">
-		<form action="list.jsp" method="post">
+		<s:form action="order_inStoreList" method="post">
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
 					<tr>
 						<td width="10%">订单号:</td>
-						<td width="40%"><input type="text" size="40"/></td>
+						<td width="40%">
+							<s:textfield size="40" name="oqm.orderNum"></s:textfield>
+						</td>
 						<td width="10%">跟单人:</td>
-						<td width="25%"><input type="text" size="20" /></td>
+						<td width="25%">
+							<s:textfield size="20" name="oqm.completer.name"></s:textfield>
+						</td>
 						<td width="15%"><a id="query"> 
 							<img src="images/can_b_01.gif" border="0" /> </a>
 						</td>
@@ -60,7 +64,7 @@
 					</s:iterator>
 				</table>
 			</div>
-		</form>
+		</s:form>
 	</div>
 	<div class="content-bbg"></div>
 </div>

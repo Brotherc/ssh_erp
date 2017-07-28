@@ -5,15 +5,7 @@ public class ResModel {
 	private Long uuid;
 	private String name;
 	private String url;
-	
-	public ResModel() {}
-	
-	public ResModel(Long uuid, String name, String url) {
-		super();
-		this.uuid = uuid;
-		this.name = name;
-		this.url = url;
-	}
+
 	public Long getUuid() {
 		return uuid;
 	}

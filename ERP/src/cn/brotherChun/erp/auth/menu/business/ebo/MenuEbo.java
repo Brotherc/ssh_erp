@@ -56,6 +56,7 @@ public class MenuEbo implements MenuEbi{
 	}
 
 	public void save(MenuModel mm, Long[] roleUuids) {
+		//array->set->mm
 		Set<RoleModel> roles=new HashSet<RoleModel>();
 		for(Long uuid:roleUuids){
 			RoleModel role=new RoleModel();

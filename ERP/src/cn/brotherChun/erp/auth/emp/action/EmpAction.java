@@ -27,9 +27,6 @@ public class EmpAction extends BaseAction {
 	private DepEbi depEbi;
 	private RoleEbi roleEbi;
 	private ResEbi resEbi;
-
-	public String newPwd;
-	public Long[] roles;
 	
 	public void setResEbi(ResEbi resEbi) {
 		this.resEbi = resEbi;
@@ -47,8 +44,75 @@ public class EmpAction extends BaseAction {
 		this.roleEbi = roleEbi;
 	}
 
+	//列表
+	public String list(){
+		//加载所有部门的信息数据
+		List<DepModel> depTemp = depEbi.getAll();
+		put("depList", depTemp);
+		setDataTotal(empEbi.getCount(eqm));
+		//根据查询条件获取数据(查询条件封装在depQ对象中)
+		List<EmpModel> temp=empEbi.getAll(eqm,pageNum,pageCount);
+		//放入指定范围
+		put("empList", temp);
+		//跳转页面
+		return LIST;
+	}
+	
+	public Long[] roles;
+	//跳转到添加页面
+	public String input(){
+		//加载所有角色信息数据
+		List<RoleModel> roleTemp = roleEbi.getAll();
+		put("roleList", roleTemp);
+		//加载所有部门信息数据
+		List<DepModel> depTemp = depEbi.getAll();
+		put("depList", depTemp);
+		
+		if(emp.getUuid()!=null){
+			emp=empEbi.get(emp.getUuid());
+			Set<RoleModel> setRole = emp.getRoles();
+			//此时roles中无数据，必须对其进行初始化才可以进行数据回显
+			roles=new Long[setRole.size()];
+			//set->array
+			int i=0;
+			for(RoleModel role:setRole){
+				roles[i++]=role.getUuid();
+			}
+		}
+		return INPUT;
+	}
+	//添加功能
+	public String save(){
+		//根据页面传递的参数判断当前操作时添加还是修改，依据是否提供emp.uuid
+		if(emp.getUuid()==null){
+			//添加功能
+			//将收集的值传递到业务层，完成保存功能
+			empEbi.save(emp,roles);		
+		}else {
+			//修改功能
+			empEbi.update(emp,roles);
+		}
+
+		return TO_LIST;
+	}
+	
+	//登出/注销
+	public String logout(){
+		//1.获得session.removeAtrribute("name");
+		//2.所谓登录失败指loginEm == null,setAttribute("name",null)
+		putSession(EmpModel.EMP_OBJECT_NAME, null);
+		return "noLogin";
+	}
+	//跳转到修改密码
+	public String toChangePwd(){
+		return "toChangePwd";
+	}
+	
+	public String newPwd;
+	
 	public String changePwd(){
 		System.out.println(newPwd+" "+getLogin().getUserName()+getLogin().getPwd());
+		//执行update ...  set pwd = newPwd where userName = session[userName] and pwd = em.pwd
 		Boolean flag=empEbi.changePwd(getLogin().getUserName(),getLogin().getPwd(),newPwd);
 		if(flag){
 			//修改成功
@@ -87,6 +151,7 @@ public class EmpAction extends BaseAction {
 			return "loginFail";
 		}
 		else {
+			//加载当前登录人对应的所有可操作资源信息
 			List<ResModel> resTemp = resEbi.getAllByEmpUuid(loginEmp.getUuid());
 			StringBuilder sb=new StringBuilder();
 			for(ResModel res:resTemp){
@@ -97,59 +162,5 @@ public class EmpAction extends BaseAction {
 			putSession(EmpModel.EMP_OBJECT_NAME, loginEmp);
 			return "loginSuccess";
 		}
-	}
-	//查询功能
-	public String list(){
-		List<DepModel> depTemp = depEbi.getAll();
-		put("depList", depTemp);
-		setDataTotal(empEbi.getCount(eqm));
-		//根据查询条件获取数据(查询条件封装在depQ对象中)
-		List<EmpModel> temp=empEbi.getAll(eqm,pageNum,pageCount);
-		//放入指定范围
-		put("empList", temp);
-		//跳转页面
-		return LIST;
-	}
-	//跳转到添加页面
-	public String input(){
-		//加载所有角色信息数据
-		List<RoleModel> roleTemp = roleEbi.getAll();
-		put("roleList", roleTemp);
-		//加载所有部门信息数据
-		List<DepModel> depTemp = depEbi.getAll();
-		put("depList", depTemp);
-		
-		if(emp.getUuid()!=null){
-			emp=empEbi.get(emp.getUuid());
-			Set<RoleModel> setRole = emp.getRoles();
-			roles=new Long[setRole.size()];
-			int i=0;
-			for(RoleModel role:setRole){
-				roles[i++]=role.getUuid();
-			}
-		}
-		return INPUT;
-	}
-	//添加功能
-	public String save(){
-		//根据页面传递的参数判断当前操作时添加还是修改，依据是否提供emp.uuid
-		if(emp.getUuid()==null){
-			//添加功能
-			//将收集的值传递到业务层，完成保存功能
-			empEbi.save(emp,roles);		
-		}else {
-			//修改功能
-			empEbi.update(emp,roles);
-		}
-
-		return TO_LIST;
-	}
-	public String logout(){
-		putSession(EmpModel.EMP_OBJECT_NAME, null);
-		return "noLogin";
-	}
-	//跳转到修改密码
-	public String toChangePwd(){
-		return "toChangePwd";
 	}
 }

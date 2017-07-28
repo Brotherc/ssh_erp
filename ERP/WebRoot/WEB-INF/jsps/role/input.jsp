@@ -5,14 +5,41 @@
 <script type="text/javascript" src="js/Calendar.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#all").click(function() {
-			$("[name=reses]:checkbox").attr("checked",$("#all").attr("checked")=="checked");
-		});
-		$("#reverse").click(function() {
-			$("[name=reses]:checkbox").each(function () {
+		
+		var allFlag=true;
+		var allCheck=function(name){
+			$("[name="+name+"]:checkbox").each(function () {
+                if($(this).attr("checked")!="checked"){
+                	allFlag=false;
+                	return;
+                }
+            });
+			if(allFlag) {
+				$("input[all="+name+"]").attr("checked",true);
+			}
+			else
+				$("input[all="+name+"]").attr("checked",false);
+			allFlag=true;
+		}
+		
+		
+		var allF=function(name){
+			$("[name="+name+"]:checkbox").attr("checked",$("input[all="+name+"]").attr("checked")=="checked");
+		}
+		var reverseF=function(name){
+			$("[name="+name+"]:checkbox").each(function () {
                 $(this).attr("checked", !$(this).attr("checked"));
             });
-
+			allCheck(name);
+		}
+		$("input[all]").click(function() {
+			allF($(this).attr("all"));
+		});
+		$("input[reverse]").click(function() {
+			reverseF($(this).attr("reverse"));
+		});
+		$("input[name]").click(function(){
+			allCheck($(this).attr("name"));
 		});
 	});
 </script>
@@ -49,8 +76,8 @@
 				    <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">资源名称</td>
 				      <td width="82%" colspan="3">
-				      	<input type="checkbox" id="all">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input type="checkbox" id="reverse">反选
+				      	<input type="checkbox"  all="reses">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="checkbox" reverse="reses">反选
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">
@@ -62,8 +89,8 @@
 				     <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">菜单名称</td>
 				      <td width="82%" colspan="3">
-				      	<input type="checkbox" id="all">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input type="checkbox" id="reverse">反选
+				      	<input type="checkbox" all="menus">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="checkbox" reverse="menus">反选
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">

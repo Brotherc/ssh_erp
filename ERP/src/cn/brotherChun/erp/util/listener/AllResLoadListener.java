@@ -19,6 +19,8 @@ public class AllResLoadListener implements ServletContextListener{
 	}
 
 	public void contextInitialized(ServletContextEvent event) {
+		//读取所有资源信息，放入SerlvetContext范围
+		//使用spring的上下文对象
 		ServletContext sct = event.getServletContext();
 		WebApplicationContext context=WebApplicationContextUtils.getWebApplicationContext(sct);
 		ResEbi resEbi = (ResEbi) context.getBean("resEbi");
@@ -29,6 +31,7 @@ public class AllResLoadListener implements ServletContextListener{
 			sb.append(res.getUrl());
 			sb.append(",");
 		}
+		//放入SerlvetContext范围中
 		sct.setAttribute("resAll", sb.toString());
 	}
 

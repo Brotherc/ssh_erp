@@ -5,20 +5,11 @@ public class DepModel {
 	private Long uuid;
 	private String name;
 	private String tele;
-	
-	public DepModel() {}
-
-	public DepModel(Long uuid, String name, String tele) {
-		super();
-		this.uuid = uuid;
-		this.name = name;
-		this.tele = tele;
-	}
 
 	public Long getUuid() {
 		return uuid;
 	}
-
+	
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
 	}
